@@ -1,0 +1,25 @@
+package com.igoryasko.justmusic.entity;
+
+import lombok.*;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Track extends Entity {
+
+   private long trackId;
+   private String name;
+   private String path;
+   private Genre genre;
+   private Singer singer;
+
+   public Track(String name, String path, Genre genre, Singer singer) {
+      this.name = name;
+      this.path = path;
+      this.genre = genre;
+      this.singer = singer;
+   }
+
+}
