@@ -29,31 +29,37 @@ public class TrackDAO extends AbstractDAO<Track> {
 
     @Language("SQL")
     private static final String FIND_ALL_TRACKS =
-            "SELECT track_id, track_name, track_path, gn.genre_id ,genre_name FROM tracks as tr\n" +
-                    "INNER JOIN genres gn ON tr.genre_id = gn.genre_id";
+            "SELECT track_id, track_name, track_path, g.genre_name, s.signer_name FROM tracks t\n" +
+                    "INNER JOIN genres g ON t.genre_id = g.genre_id INNER JOIN signers s on t.signer_id = s.signer_id";
     @Language("SQL")
     private static final String SELECT_ALL_TRACKS_BY_LIMIT = "SELECT track_id, track_name, track_path, g.genre_name, s.signer_name " +
             "FROM tracks tr INNER JOIN genres g on tr.genre_id = g.genre_id INNER JOIN signers s on tr.signer_id = s.signer_id " +
             "ORDER BY track_id LIMIT ? OFFSET ?";
     @Language("SQL")
-    private static final String SELECT_TOP_SIX_TRACKS = "SELECT track_name, track_path, g.genre_name, s.signer_name FROM tracks t" +
-            " INNER JOIN genres g on t.genre_id = g.genre_id INNER JOIN signers s ON t.signer_id = s.signer_id LIMIT 6";
+    private static final String SELECT_TOP_FIVE_TRACKS = "SELECT track_id, track_name, track_path, g.genre_name, s.signer_name FROM tracks t" +
+            " INNER JOIN genres g on t.genre_id = g.genre_id INNER JOIN signers s ON t.signer_id = s.signer_id LIMIT 5";
     @Language("SQL")
-    private static final String FIND_TRACK_BY_ID = "SELECT * FROM tracks WHERE track_id=?";
+    private static final String FIND_TRACK_BY_ID = "SELECT track_id, track_name FROM tracks WHERE track_id=?";
     @Language("SQL")
-    private static final String FIND_FAVORITES_TRACK = "SELECT tr.track_path, tr.track_name, g.genre_name, s.signer_name FROM tracks tr INNER JOIN users_tracks ut ON\n" +
+    private static final String FIND_FAVORITES_TRACK = "SELECT tr.track_id ,tr.track_path, tr.track_name, g.genre_name, s.signer_name FROM tracks tr INNER JOIN users_tracks ut ON\n" +
             "            tr.track_id = ut.track_id INNER JOIN users us ON ut.user_id = us.user_id INNER JOIN genres g ON tr.genre_id = g.genre_id\n" +
             "INNER JOIN signers s ON tr.signer_id = s.signer_id where us.user_id = ?;";
     @Language("SQL")
     private static final String DELETE_TRACK_BY_ID = "DELETE FROM tracks WHERE track_id=?";
     @Language("SQL")
+    private static final String DELETE_FAVORITE = "DELETE FROM users_tracks WHERE track_id=? AND user_id=?";
+    @Language("SQL")
+    private static final String INSERT_FAVORITE = "INSERT INTO users_tracks (user_id, track_id) VALUES (?,?)";
+    @Language("SQL")
+    private static final String FIND_FAVORITE = "SELECT FROM users_tracks WHERE user_id=? AND track_id=?";
+    @Language("SQL")
     private static final String INSERT_TRACK =
             "INSERT INTO tracks (track_name, track_path, genre_id, signer_id) VALUES(?,?,?,?)";
     @Language("SQL")
-    private static final String INSERT_USERS_TRACKS = "INSERT INTO users_tracks (user_id, track_id) VALUES (?,?)";
+    private static final String FIND_COUNT_BY_ID = "SELECT COUNT(track_id) FROM tracks";
     @Language("SQL")
-    private static final String FIND_COUNT_BY_ID =
-            "SELECT COUNT(track_id) FROM tracks";
+    private static final String UPDATE_TRACK =
+            "UPDATE tracks SET track_name=?, genre_id=?, signer_id=? WHERE track_id=?";
 
     @Override
     public List<Track> findAll() throws DaoException {
@@ -63,11 +69,12 @@ public class TrackDAO extends AbstractDAO<Track> {
                 while (resultSet.next()) {
                     Track track = new Track();
                     Genre genre = new Genre();
+                    Singer singer = new Singer();
                     track.setTrackId(resultSet.getLong(1));
                     track.setName(resultSet.getString(2));
                     track.setPath(resultSet.getString(3));
-                    genre.setGenreId(resultSet.getLong(4));
-                    genre.setName(resultSet.getString(5));
+                    genre.setName(resultSet.getString(4));
+                    singer.setName(resultSet.getString(5));
                     track.setGenre(genre);
                     list.add(track);
                 }
@@ -131,20 +138,33 @@ public class TrackDAO extends AbstractDAO<Track> {
     }
 
     @Override
-    public boolean update(Track entity) {
+    public boolean update(Track track) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(UPDATE_TRACK)) {
+            pr.setString(1, track.getName());
+            pr.setLong(2, track.getGenre().getGenreId());
+            pr.setLong(3, track.getSinger().getSingerId());
+            pr.setLong(4, track.getTrackId());
+            int result = pr.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
         return false;
     }
 
-    public List<Track> findTopSix() throws DaoException {
+    public List<Track> findTopFive() throws DaoException {
         List<Track> list = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TOP_SIX_TRACKS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TOP_FIVE_TRACKS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Track track = new Track();
-                    track.setName(resultSet.getString(1));
-                    track.setPath(resultSet.getString(2));
-                    track.setGenre(new Genre(resultSet.getString(3)));
-                    track.setSinger(new Singer(resultSet.getString(4)));
+                    track.setTrackId(resultSet.getLong(1));
+                    track.setName(resultSet.getString(2));
+                    track.setPath(resultSet.getString(3));
+                    track.setGenre(new Genre(resultSet.getString(4)));
+                    track.setSinger(new Singer(resultSet.getString(5)));
                     list.add(track);
                 }
             }
@@ -167,7 +187,7 @@ public class TrackDAO extends AbstractDAO<Track> {
         return result;
     }
 
-    public List<Track> findByLimit(int limit ,int offSet) throws DaoException {
+    public List<Track> findByLimit(int limit, int offSet) throws DaoException {
         List<Track> list = new ArrayList<>();
         try (PreparedStatement pr = connection.prepareStatement(SELECT_ALL_TRACKS_BY_LIMIT)) {
             pr.setLong(1, limit);
@@ -193,8 +213,8 @@ public class TrackDAO extends AbstractDAO<Track> {
         return list;
     }
 
-    public boolean createUserTrack(long userId, long trackId) throws DaoException {
-        try (PreparedStatement pr = connection.prepareStatement(INSERT_USERS_TRACKS)) {
+    public boolean addFavorite(long userId, long trackId) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(INSERT_FAVORITE)) {
             pr.setLong(1, userId);
             pr.setLong(2, trackId);
             int result = pr.executeUpdate();
@@ -202,7 +222,21 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException(e);
+        }
+        return false;
+    }
+
+    public boolean checkFavorite(long userId, long trackId) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(FIND_FAVORITE)) {
+            pr.setLong(1, userId);
+            pr.setLong(2, trackId);
+            try (ResultSet resultSet = pr.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
         return false;
@@ -210,18 +244,20 @@ public class TrackDAO extends AbstractDAO<Track> {
 
     public List<Track> findFavoritesTracks(long userId) throws DaoException {
         List<Track> list = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_FAVORITES_TRACK)) {
-            preparedStatement.setLong(1, userId);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (PreparedStatement pr = connection.prepareStatement(FIND_FAVORITES_TRACK)) {
+            pr.setLong(1, userId);
+            try (ResultSet resultSet = pr.executeQuery()) {
                 while (resultSet.next()) {
                     Track track = new Track();
                     Genre genre = new Genre();
                     Singer singer = new Singer();
-                    track.setPath(resultSet.getString(1));
-                    track.setName(resultSet.getString(2));
-                    genre.setName(resultSet.getString(3));
-                    singer.setName(resultSet.getString(4));
+                    track.setTrackId(resultSet.getLong(1));
+                    track.setPath(resultSet.getString(2));
+                    track.setName(resultSet.getString(3));
+                    genre.setName(resultSet.getString(4));
+                    singer.setName(resultSet.getString(5));
                     track.setGenre(genre);
+                    track.setSinger(singer);
                     list.add(track);
                 }
             }
@@ -229,6 +265,20 @@ public class TrackDAO extends AbstractDAO<Track> {
             throw new DaoException(e);
         }
         return list;
+    }
+
+    public boolean deleteFavorite(long trackId, long userId) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FAVORITE)) {
+            preparedStatement.setLong(1, trackId);
+            preparedStatement.setLong(2, userId);
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return false;
     }
 
 }

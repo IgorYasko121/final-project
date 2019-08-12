@@ -9,6 +9,8 @@ import lombok.*;
 @Builder
 public class Singer extends Entity{
 
+    private static final long serialVersionUID = -87758406741621694L;
+
     private long singerId;
     private String name;
 

@@ -1,13 +1,12 @@
 package com.igoryasko.justmusic.controller;
 
-import com.igoryasko.justmusic.entity.Genre;
-import com.igoryasko.justmusic.entity.Singer;
 import com.igoryasko.justmusic.exception.ServiceException;
+import com.igoryasko.justmusic.language.LanguageManager;
 import com.igoryasko.justmusic.service.AdminService;
-import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.util.AttributeConstant;
 import com.igoryasko.justmusic.util.PageConstant;
 import com.igoryasko.justmusic.util.ParameterConstant;
+import com.igoryasko.justmusic.validator.TrackValidator;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
@@ -19,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+
+import static com.igoryasko.justmusic.util.ParameterConstant.LOCALE;
 
 /**
  * The class {@code FileLoadServlet} uploads music to the server.
@@ -38,21 +39,34 @@ public class FileLoadServlet extends HttpServlet {
         String applicationPath = request.getServletContext().getRealPath("");
         String uploadFilePath = applicationPath + UPLOAD_DIR;
         File uploadFolder = new File(uploadFilePath);
+        AdminService adminService = new AdminService();
+        TrackValidator validator = new TrackValidator();
 
         if (!uploadFolder.exists()) {
             uploadFolder.mkdirs();
         }
+
+        String trackName = request.getParameter(ParameterConstant.TRACK_NAME);
+        String genreName = request.getParameter(ParameterConstant.GENRE).toUpperCase();
+        String singerName = request.getParameter(ParameterConstant.SINGER);
+
         Part part = request.getPart("file");
         if (part != null && part.getSize() > 0) {
             String fileName = part.getSubmittedFileName();
             String contentType = part.getContentType();
+            String fileNameDb = UPLOAD_DIR + File.separator + fileName;
+
             if (contentType.equalsIgnoreCase("audio/mp3")) {
                 part.write(uploadFilePath + File.separator + fileName);
                 try {
-                    processRequest(request, fileName);
+                    if (validator.validate(trackName, genreName, singerName)) {
+                        adminService.addTrack(trackName, fileNameDb, genreName, singerName);
+                    } else {
+                        request.getSession().setAttribute("errorInputMessage",
+                                LanguageManager.getMessage("registration.failed", (String) request.getSession().getAttribute(LOCALE)));
+                    }
                 } catch (ServiceException e) {
                     log.error("Can't edd track to db", e);
-                    e.printStackTrace();
                     request.setAttribute(AttributeConstant.ERROR, e);
                     request.getRequestDispatcher(PageConstant.PAGE_SERVER_ERROR).forward(request, response);
                     return;
@@ -60,28 +74,6 @@ public class FileLoadServlet extends HttpServlet {
             }
             response.sendRedirect(request.getContextPath() + PageConstant.PATH_ADMIN);
         }
-    }
-
-    private void processRequest(HttpServletRequest request, String fileName) throws ServiceException {
-        String fileNameDb = UPLOAD_DIR + File.separator + fileName;
-        String trackName = request.getParameter(ParameterConstant.TRACK_NAME);
-        String genreName = request.getParameter(ParameterConstant.GENRE).toUpperCase();
-        String singerName = request.getParameter(ParameterConstant.SINGER);
-        AdminService adminService = new AdminService();
-        TrackService trackService = new TrackService();
-        Singer singer = adminService.findSingerByName(singerName);
-        if (singer == null) {
-            singer = new Singer(singerName);
-            long singerId = adminService.addSinger(singer.getName());
-            singer.setSingerId(singerId);
-        }
-        Genre genre = adminService.findGenreByName(genreName);
-        if (genre == null) {
-            genre = new Genre(genreName);
-            long genreId = adminService.addGenre(genre.getName());
-            genre.setGenreId(genreId);
-        }
-        trackService.addTrack(trackName, fileNameDb, genre, singer);
     }
 
 }

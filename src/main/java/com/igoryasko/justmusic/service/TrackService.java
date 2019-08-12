@@ -56,7 +56,7 @@ public class TrackService {
         helper.begin(trackDAO);
         try {
             tracks = trackDAO.findByLimit(recordsPerPage ,startPosition);
-            log.info("Find all users by limit");
+            log.debug("Find all users by limit");
             return tracks;
         } catch (DaoException e) {
             log.error(e);
@@ -72,7 +72,7 @@ public class TrackService {
         helper.begin(trackDAO);
         try {
             numOfRows = trackDAO.findCountById();
-            log.info("Find all tracks rows");
+            log.debug("Find all tracks rows");
             return numOfRows;
         } catch (DaoException e) {
             log.error(e);
@@ -87,7 +87,7 @@ public class TrackService {
         List<Track> tracks;
         helper.begin(trackDAO);
         try {
-            tracks = trackDAO.findTopSix();
+            tracks = trackDAO.findTopFive();
             log.debug("Find top ten tracks");
             return tracks;
         } catch (DaoException e) {
@@ -117,9 +117,11 @@ public class TrackService {
     public boolean deleteTrack(long trackId) throws ServiceException {
         helper = new TransactionHelper();
         helper.begin(trackDAO);
+        boolean res;
         try {
-            log.debug("Delete track: " + trackId);
-            return trackDAO.delete(trackId);
+            res = trackDAO.delete(trackId);
+            log.info("Delete track: " + trackId);
+            return res;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -128,14 +130,30 @@ public class TrackService {
         }
     }
 
-    public boolean createTrackUser(long userId, long trackId) throws ServiceException {
+    public boolean deleteFromFavorite(long trackId, long userId) throws ServiceException{
+        helper = new TransactionHelper();
+        helper.begin(trackDAO);
+        boolean res;
+        try {
+            res = trackDAO.deleteFavorite(trackId, userId);
+            log.debug("Delete trackId " + trackId + "userId " + userId + "from favorite");
+            return res;
+        } catch (DaoException e) {
+            log.error(e);
+            throw new ServiceException(e);
+        } finally {
+            helper.end();
+        }
+    }
+
+    public boolean addToFavorite(long userId, long trackId) throws ServiceException {
         helper = new TransactionHelper();
         helper.begin(trackDAO);
         try {
-            log.debug("Add track to users_tracks table");
-            return trackDAO.createUserTrack(userId, trackId);
+            log.info("Add track to users_tracks table " + userId + " " + trackId);
+            return !trackDAO.checkFavorite(userId, trackId) && trackDAO.addFavorite(userId, trackId);
         } catch (DaoException e) {
-            e.printStackTrace();
+            log.error(e);
             throw new ServiceException(e);
         } finally {
             helper.end();

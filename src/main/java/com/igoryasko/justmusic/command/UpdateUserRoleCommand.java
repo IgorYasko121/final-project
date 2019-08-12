@@ -47,6 +47,8 @@ public class UpdateUserRoleCommand implements Command {
                 throw new CommandException(e);
             }
         } else {
+            request.setAttribute("errorLoginPassMessage",
+                    LanguageManager.getMessage("registration.failed", (String) request.getSession().getAttribute(LOCALE)));
             commandResult.setPagePath(PageConstant.PAGE_ADMIN);
         }
         return Optional.of(commandResult);

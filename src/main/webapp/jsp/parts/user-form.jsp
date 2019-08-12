@@ -5,26 +5,33 @@
 <fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
-    <title>Title</title>
 </head>
 <body>
     <input type="hidden" name="command" value="sign_up"/>
-    <fmt:message key="label.firstName"/><br/>
-    <input type="text" name="firstName" value="" required="required" pattern="[A-Za-z]{1,20}"/>
-    <br/><fmt:message key="label.lastName"/><br/>
-    <input type="text" name="lastName" value="" required="required" pattern="[A-Za-z]{1,20}"/>
-    <br/><fmt:message key="label.loginReg"/><br/>
-    <input type="text" name="login" value="" required="required" pattern="[A-Za-z0-9]{1,20}"/>
-    <br/><fmt:message key="label.passwordReg"/><br/>
-    <input type="text" name="password" value="" required="required" pattern="[A-Za-z0-9]{1,20}"/>
-    <br/><fmt:message key="label.email"/><br/>
-    <input type="text" name="email" value="" required="required" pattern="[A-Za-z@0-9]{1,20}"/>
+    <div class="form-group">
+        <label for="firstName"><fmt:message key="label.firstName"/></label>
+        <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+    </div>
+    <div class="form-group">
+        <label for="lastName"><fmt:message key="label.lastName"/></label>
+        <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+    </div>
+    <div class="form-group">
+        <label for="loginReg"><fmt:message key="label.loginReg"/></label>
+        <input class="form-control" id="loginReg" type="text" name="login" value="" required="required" pattern="^[(\w)-]{4,20}"/>
+    </div>
+    <div class="form-group">
+        <label for="passwordReg"><fmt:message key="label.passwordReg"/></label>
+        <input class="form-control" id="passwordReg" type="password" name="password" value="" required="required"
+               pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=\S+$).{6,12}$" />
+        <small id="emailHelp" class="form-text text-muted"><fmt:message key="input.passinfo"/></small>
+    </div>
+    <div class="form-group">
+        <label for="email"><fmt:message key="label.email"/></label>
+        <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,30}$).{1,30}@.{2,30}$"/>
+    </div>
     <br/>
     <p style="color: #FF0000;">${errorLoginPassMessage}</p>
-    <br/>
-    ${wrongAction}
-    <br/>
-    ${nullPage}
     <br/>
     <input class="btn btn-primary" type="submit" value="<fmt:message key="label.buttonReg"/>"/>
 </body>

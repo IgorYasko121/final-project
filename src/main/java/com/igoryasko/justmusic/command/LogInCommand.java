@@ -48,14 +48,15 @@ public class LogInCommand implements Command {
             if (role.equals(User.Role.USER)) {
                 List<Track> tracks;
                 try {
-                    tracks = trackService.findAllTracks();
+                    tracks = trackService.findTopSixTracks();
                 } catch (ServiceException e) {
                     log.info(e);
                     throw new CommandException(e);
                 }
+                request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
+                request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
                 session.setAttribute(AttributeConstant.ROLE, role);
                 session.setAttribute(AttributeConstant.USER, login);
-                session.setAttribute(AttributeConstant.TRACKS, tracks);
                 commandResult.setPagePath(PageConstant.PAGE_HOME);
             } else if (role.equals(User.Role.ADMIN)) {
                 session.setAttribute(AttributeConstant.ROLE, role);

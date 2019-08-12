@@ -13,9 +13,6 @@ public class CommandResult {
 
     private String pagePath;
     private RouteType route = RouteType.FORWARD;
-//    private HashMap<String, Object> sessionAttributes;
-//    private HashMap<String, Object> requestAttributes;
-//    private HashMap<String, String[]> requestParameters;
 
     public String getPagePath() {
         return pagePath;

@@ -16,7 +16,7 @@ public class ActionFactory {
         try {
             type = CommandType.valueOf(commandName.toUpperCase());
         } catch (IllegalArgumentException e) {
-            log.error(e.getMessage());
+            log.error(e);
             log.warn("Unknown command");
             return current;
         }

@@ -34,11 +34,12 @@ public class FavoriteCommand implements Command {
             User user = userService.findUserByName(userName);
             tracks = service.findFavoriteTracks(user.getUserId());
         } catch (ServiceException e) {
-            log.info(e);
+            log.error(e);
             throw new CommandException(e);
         }
         commandResult.setPagePath(PageConstant.PATH_HOME);
         request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
+        request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
         return Optional.of(commandResult);
     }
 }

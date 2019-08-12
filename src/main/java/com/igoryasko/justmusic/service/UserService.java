@@ -38,12 +38,12 @@ public class UserService {
         String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
         helper = new TransactionHelper();
         User user = new User(firstName, lastName, login, hash, email);
-        log.debug(user);
         helper.begin(userDAO);
+        boolean res;
         try {
-            userDAO.create(user);
-            log.info("Register user");
-            return true;
+            res = userDAO.create(user);
+            log.info("Register user: " + user);
+            return res;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -56,12 +56,12 @@ public class UserService {
         String hash = BCrypt.hashpw(password, BCrypt.gensalt(12));
         helper = new TransactionHelper();
         User user = new User(firstName, lastName, login, hash, email);
-        log.debug(user);
         helper.begin(userDAO);
+        boolean res;
         try {
-            userDAO.update(user);
-            log.info("Update user");
-            return true;
+            res = userDAO.update(user);
+            log.info("Update user: " + user);
+            return res;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -125,7 +125,7 @@ public class UserService {
         helper.begin(userDAO);
         try {
             users = userDAO.findById(userId);
-            log.info("Get all users");
+            log.info("Find users: " + userId);
             return users;
         } catch (DaoException e) {
             log.error(e);
@@ -138,9 +138,11 @@ public class UserService {
     public boolean deleteUser(long userId) throws ServiceException {
         helper = new TransactionHelper();
         helper.begin(userDAO);
+        boolean res;
         try {
-            log.info("Delete user");
-            return userDAO.delete(userId);
+            res = userDAO.delete(userId);
+            log.info("Delete user: " + userId);
+            return res;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -152,10 +154,11 @@ public class UserService {
     public boolean updateRoleUser(String role, long id) throws ServiceException {
         helper = new TransactionHelper();
         helper.begin(userDAO);
+        boolean res;
         try {
-            userDAO.updateRoleById(role, id);
+            res = userDAO.updateRoleById(role, id);
             log.info("Update user");
-            return true;
+            return res;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -168,7 +171,7 @@ public class UserService {
         helper = new TransactionHelper();
         helper.begin(userDAO);
         try {
-            log.info("Check user");
+            log.debug("Check user: " + login);
             return userDAO.findByLogin(login);
         } catch (DaoException e) {
             log.error(e);

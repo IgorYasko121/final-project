@@ -20,6 +20,7 @@ public class PageConstant {
     public static final String PAGE_UPDATE_USER_ROLE = "/jsp/admin/edit-user-role.jsp";
     public static final String PAGE_UPDATE_TRACK = "/jsp/admin/edit-track.jsp";
     public static final String PAGE_UPDATE_USER = "/jsp/user/edit-user.jsp";
+    public static final String PAGE_FAVORITE = "/jsp/user/favorite.jsp";
 
     public static final String PATH_HOME = "/home";
     public static final String PATH_ADMIN = "/admin";

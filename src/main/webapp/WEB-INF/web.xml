@@ -37,13 +37,4 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet>-->
-<!--        <servlet-name>editTrack</servlet-name>-->
-<!--        <jsp-file>/jsp/edit-track.jsp</jsp-file>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>editTrack</servlet-name>-->
-<!--        <url-pattern>/edit-track</url-pattern>-->
-<!--    </servlet-mapping>-->
-
 </web-app>

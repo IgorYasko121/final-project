@@ -3,12 +3,11 @@ package com.igoryasko.justmusic.dao;
 import com.igoryasko.justmusic.connectionpool.ProxyConnection;
 import com.igoryasko.justmusic.entity.Entity;
 import com.igoryasko.justmusic.exception.DaoException;
-import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
 import java.util.List;
 
-@Log4j2
+
 public abstract class AbstractDAO<T extends Entity> {
 
     protected Connection connection;

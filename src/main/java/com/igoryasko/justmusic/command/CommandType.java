@@ -1,5 +1,6 @@
 package com.igoryasko.justmusic.command;
 
+import com.igoryasko.justmusic.service.AdminService;
 import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.service.UserService;
 
@@ -18,8 +19,10 @@ public enum CommandType {
     TO_UPDATE_TRACK(new toUpdateTrackCommand()),
     UPDATE_USER(new UpdateUserCommand(new UserService(), new TrackService())),
     DELETE_USER(new DeleteUserCommand(new UserService())),
+    UPDATE_TRACK(new UpdateTrackCommand(new AdminService())),
     DELETE_TRACK(new DeleteTrackCommand(new TrackService())),
-    ADD_TO_FAVORITES(new AddToFavoritesCommand(new UserService(), new TrackService())),
+    ADD_TO_FAVORITES(new AddToFavoriteCommand(new UserService(), new TrackService())),
+    DELETE_FAVORITE(new DeleteFavoriteCommand(new UserService(), new TrackService())),
     FAVORITE(new FavoriteCommand(new TrackService(), new UserService()));
 
     private Command command;

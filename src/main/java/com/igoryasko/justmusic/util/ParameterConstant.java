@@ -9,7 +9,7 @@ public class ParameterConstant {
     private ParameterConstant(){
 
     }
-
+    public static final int RECORDS_PER_PAGE = 5;
     public static final String COMMAND = "command";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";

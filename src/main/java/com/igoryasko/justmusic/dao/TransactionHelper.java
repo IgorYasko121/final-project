@@ -30,13 +30,16 @@ public class TransactionHelper {
         connectionPool.releaseConnection(connection);
     }
 
-    public void beginTransaction(AbstractDAO dao) {
+    public void beginTransaction(AbstractDAO dao, AbstractDAO ... daos) {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
             log.error("Couldn't set autocommit", e);
         }
         dao.setConnection(connection);
+        for (AbstractDAO d : daos){
+            d.setConnection(connection);
+        }
     }
 
     public void endTransaction() {

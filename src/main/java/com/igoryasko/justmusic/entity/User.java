@@ -12,6 +12,8 @@ import java.util.Set;
 @Builder
 public class User extends Entity {
 
+    private static final long serialVersionUID = -2558970303784010499L;
+
     private long userId;
     private String firstName;
     private String lastName;

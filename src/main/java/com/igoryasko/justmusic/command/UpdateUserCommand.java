@@ -49,8 +49,8 @@ public class UpdateUserCommand implements Command {
                 HttpSession session = request.getSession();
                 session.setAttribute(AttributeConstant.USER, login);
                 session.setAttribute(AttributeConstant.TRACKS, tracks);
-                commandResult.setPagePath(PageConstant.PATH_HOME);
                 commandResult.setRoute(CommandResult.RouteType.REDIRECT);
+                commandResult.setPagePath(PageConstant.PATH_HOME);
             } catch (ServiceException e) {
                 log.error(e);
                 throw new CommandException(e);

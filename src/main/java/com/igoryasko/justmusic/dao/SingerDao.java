@@ -2,6 +2,7 @@ package com.igoryasko.justmusic.dao;
 
 import com.igoryasko.justmusic.entity.Singer;
 import com.igoryasko.justmusic.exception.DaoException;
+import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+@Log4j2
 public class SingerDao extends AbstractDAO<Singer> {
 
     private static SingerDao instance;
@@ -61,7 +63,7 @@ public class SingerDao extends AbstractDAO<Singer> {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Create singer: " + singer);
             throw new DaoException(e);
         }
         return false;
@@ -77,7 +79,7 @@ public class SingerDao extends AbstractDAO<Singer> {
                 res = resultSet.getLong(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Create singer: " + singer);
             throw new DaoException(e);
         }
         return res;
@@ -100,6 +102,7 @@ public class SingerDao extends AbstractDAO<Singer> {
                 }
             }
         } catch (SQLException e) {
+            log.debug("Find singer: " + name);
             throw new DaoException(e);
         }
         return singer;

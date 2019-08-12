@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+import static com.igoryasko.justmusic.util.ParameterConstant.*;
+
 @Log4j2
 public class AllTracksCommand implements Command {
-
-    public static final int RECORDS_PER_PAGE = 5;
 
     private TrackService service;
 
@@ -28,10 +28,10 @@ public class AllTracksCommand implements Command {
     public Optional<CommandResult> execute(HttpServletRequest request) throws CommandException {
         CommandResult commandResult = new CommandResult();
         int currentPage = 1;
-        if (request.getParameter(ParameterConstant.CURRENT_PAGE) != null){
-            currentPage = Integer.parseInt(request.getParameter(ParameterConstant.CURRENT_PAGE));
+        if (request.getParameter(CURRENT_PAGE) != null) {
+            currentPage = Integer.parseInt(request.getParameter(CURRENT_PAGE));
         }
-        String page = request.getParameter(ParameterConstant.PAGE);
+        String page = request.getParameter(PAGE);
         List<Track> tracks;
         int rows;
         try {
@@ -47,16 +47,18 @@ public class AllTracksCommand implements Command {
             nOfPages++;
         }
 
-        request.setAttribute("noOfPages", nOfPages);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("RECORDS_PER_PAGE", RECORDS_PER_PAGE);
-
         if (page != null && page.equals(ParameterConstant.PAGE_HOME)) {
             commandResult.setPagePath(PageConstant.PATH_HOME);
             request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
+            request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, nOfPages);
+            request.getSession().setAttribute(AttributeConstant.CURRENT_PAGE, currentPage);
+            request.getSession().setAttribute(AttributeConstant.RECORDS_PER_PAGE, RECORDS_PER_PAGE);
         } else {
             commandResult.setPagePath(PageConstant.PAGE_ADMIN);
             request.setAttribute(AttributeConstant.TRACKS, tracks);
+            request.setAttribute(AttributeConstant.NUMBER_OF_PAGES, nOfPages);
+            request.setAttribute(AttributeConstant.CURRENT_PAGE, currentPage);
+            request.setAttribute(AttributeConstant.RECORDS_PER_PAGE, RECORDS_PER_PAGE);
         }
         return Optional.of(commandResult);
     }

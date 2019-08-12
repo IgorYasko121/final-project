@@ -55,8 +55,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 genre.setName(resultSet.getString(2));
             }
         } catch (SQLException e) {
-            log.debug("Find genre");
-            e.printStackTrace();
+            log.debug("Find genre: " + genre);
             throw new DaoException(e);
         }
         return genre;
@@ -71,7 +70,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Create genre: " + genre);
             throw new DaoException(e);
         }
         return false;
@@ -82,12 +81,13 @@ public class GenreDAO extends AbstractDAO<Genre> {
         try (PreparedStatement pr = connection.prepareStatement(INSERT_GENRE, Statement.RETURN_GENERATED_KEYS)) {
             pr.setString(1, genre.getName());
             pr.executeUpdate();
+            // TODO: 11.08.2019 close rs
             ResultSet resultSet = pr.getGeneratedKeys();
             if (resultSet.next()) {
                 res = resultSet.getLong(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.info("Create genre: " + genre);
             throw new DaoException(e);
         }
         return res;
@@ -108,20 +108,6 @@ public class GenreDAO extends AbstractDAO<Genre> {
         return false;
     }
 
-//    public boolean checkByName(String name) throws DaoException {
-//        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_GENRE_BY_NAME)) {
-//            preparedStatement.setString(1, name);
-//            try (ResultSet resultSet = preparedStatement.executeQuery()){
-//                if (resultSet.next()) {
-//                    return true;
-//                }
-//            }
-//        } catch (SQLException e) {
-//            throw new DaoException(e);
-//        }
-//        return false;
-//    }
-
     public Genre findByName(String name) throws DaoException {
         Genre genre = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_GENRE_BY_NAME)) {
@@ -134,6 +120,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 }
             }
         } catch (SQLException e) {
+            log.debug("Find genre by name: " + name);
             throw new DaoException(e);
         }
         return genre;

@@ -9,7 +9,6 @@ import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.service.UserService;
 import com.igoryasko.justmusic.util.AttributeConstant;
 import com.igoryasko.justmusic.util.PageConstant;
-import com.igoryasko.justmusic.util.ParameterConstant;
 import com.igoryasko.justmusic.validator.UserValidator;
 import lombok.extern.log4j.Log4j2;
 
@@ -44,15 +43,16 @@ public class SignUpCommand implements Command {
             try {
                 if (!userService.checkLogin(login)) {
                     userService.registerUser(firstName, lastName, login, password, email);
-                    List<Track> tracks = trackService.findAllTracks();
                     HttpSession session = request.getSession();
+                    List<Track> tracks = trackService.findTopSixTracks();
+                    request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
+                    request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
                     session.setAttribute(AttributeConstant.ROLE, User.Role.USER);
                     session.setAttribute(AttributeConstant.USER, login);
-                    session.setAttribute(AttributeConstant.TRACKS, tracks);
                     commandResult.setPagePath(PageConstant.PATH_HOME);
                     commandResult.setRoute(CommandResult.RouteType.REDIRECT);
                 } else {
-                    request.setAttribute("errorLoginPassMessage",
+                    request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
                             LanguageManager.getMessage("login.exist", (String) request.getSession().getAttribute(LOCALE)));
                     commandResult.setPagePath(PageConstant.PAGE_MAIN);
                 }
@@ -61,7 +61,7 @@ public class SignUpCommand implements Command {
                 throw new CommandException(e);
             }
         } else {
-            request.setAttribute("errorLoginPassMessage",
+            request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
                     LanguageManager.getMessage("registration.failed", (String) request.getSession().getAttribute(LOCALE)));
             commandResult.setPagePath(PageConstant.PAGE_MAIN);
         }

@@ -26,7 +26,8 @@ public class TrackListTag extends TagSupport {
         if (tracks != null && !tracks.isEmpty()) {
             try {
                 for (Track track : tracks) {
-                    out.write("<p>" + track.getName() + " " + track.getSinger().getName() + " " + track.getGenre().getName() + "</p>");
+                    out.write("<p>" + track.getName() + "</p>");
+                    out.write("<p>" + track.getSinger().getName() + "</p>");
                     out.write("<audio controls=\"controls\">");
                     out.write("<source src=" + track.getPath() + " type=\"audio/mpeg\">" + "</audio>");
                     out.write("</audio>");
