@@ -20,11 +20,8 @@ public class User extends Entity {
     private String login;
     private String password;
     private LocalDate createdAt;
-    private LocalDate birthDay;
     private String email;
     private Role role;
-    private boolean isActive;
-    private Set<Track> tracks;
 
     public User(String firstName, String lastName, String login, String password, String email) {
         this.firstName = firstName;
@@ -33,11 +30,10 @@ public class User extends Entity {
         this.password = password;
         this.email = email;
         role = Role.USER;
-        isActive = false;
     }
 
     public enum Role {
-        USER, ADMIN, SIGNER, GUEST
+        USER, ADMIN, GUEST
     }
 
 }

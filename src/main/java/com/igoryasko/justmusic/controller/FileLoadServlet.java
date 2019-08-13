@@ -3,6 +3,7 @@ package com.igoryasko.justmusic.controller;
 import com.igoryasko.justmusic.exception.ServiceException;
 import com.igoryasko.justmusic.language.LanguageManager;
 import com.igoryasko.justmusic.service.AdminService;
+import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.util.AttributeConstant;
 import com.igoryasko.justmusic.util.PageConstant;
 import com.igoryasko.justmusic.util.ParameterConstant;
@@ -23,6 +24,7 @@ import static com.igoryasko.justmusic.util.ParameterConstant.LOCALE;
 
 /**
  * The class {@code FileLoadServlet} uploads music to the server.
+ *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
@@ -40,6 +42,7 @@ public class FileLoadServlet extends HttpServlet {
         String uploadFilePath = applicationPath + UPLOAD_DIR;
         File uploadFolder = new File(uploadFilePath);
         AdminService adminService = new AdminService();
+        TrackService trackService = new TrackService();
         TrackValidator validator = new TrackValidator();
 
         if (!uploadFolder.exists()) {
@@ -60,10 +63,19 @@ public class FileLoadServlet extends HttpServlet {
                 part.write(uploadFilePath + File.separator + fileName);
                 try {
                     if (validator.validate(trackName, genreName, singerName)) {
-                        adminService.addTrack(trackName, fileNameDb, genreName, singerName);
+                        if (!trackService.checkTrack(fileNameDb)) {
+                            adminService.addTrack(trackName, fileNameDb, genreName, singerName);
+                        }else {
+                            request.setAttribute(AttributeConstant.ERROR_INPUT_MESSAGE,
+                                    LanguageManager.getMessage("track.exist", (String) request.getSession().getAttribute(LOCALE)));
+                            request.getRequestDispatcher(PageConstant.PATH_ADMIN).forward(request, response);
+                            return;
+                        }
                     } else {
-                        request.getSession().setAttribute("errorInputMessage",
-                                LanguageManager.getMessage("registration.failed", (String) request.getSession().getAttribute(LOCALE)));
+                        request.getSession().setAttribute(AttributeConstant.ERROR_INPUT_MESSAGE,
+                                LanguageManager.getMessage("input.failed", (String) request.getSession().getAttribute(LOCALE)));
+                        request.getRequestDispatcher(PageConstant.PATH_ADMIN).forward(request, response);
+                        return;
                     }
                 } catch (ServiceException e) {
                     log.error("Can't edd track to db", e);

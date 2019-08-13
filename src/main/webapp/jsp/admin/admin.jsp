@@ -33,32 +33,7 @@
             </form>
     </nav>
 </header>
-<%--Form to add track--%>
-    <div class="container-fluid bg-light">
-        <h5><fmt:message key="label.buttonAddTrack"/></h5><br/>
-        <form action="upload" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="trackName"><fmt:message key="label.trackName"/></label>
-                <input class="form-control" id="trackName" type="text" name="track_name" value="" required="required" pattern="^[a-zA-Z0-9 -]{3,30}$"/>
-            </div>
-            <div class="form-group">
-                <label for="trackGenre"><fmt:message key="label.trackGenre"/></label>
-                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{3,20}"/>
-            </div>
-            <div class="form-group">
-                <label for="trackSinger"><fmt:message key="label.trackSinger"/></label>
-                <input class="form-control" id="trackSinger" type="text" name="singer" value="" required="required" pattern="^[a-zA-Z0-9 -]{3,30}$"/>
-            </div>
-            <div class="form-group">
-                <label for="trackFile"><fmt:message key="label.trackFile"/></label>
-                <input class="form-control" id="trackFile" type="file" name="file"/>
-            </div>
-            <p style="color: #FF0000;">${errorInputMessage}</p>
-            <br/>
-            <input class="btn btn-secondary" type="submit" name="submit" value="<fmt:message key="label.buttonUpload"/>"/>
-        </form>
-    </div>
-    <hr/>
+<hr/>
 <%--Get all users command--%>
     <div class="container-fluid bg-light">
     <form method="post" action="controller">
@@ -199,6 +174,34 @@
             </nav>
     </c:if>
     </div>
+<%--Form to add track--%>
+    <div class="container-fluid bg-light">
+        <h5><fmt:message key="label.buttonAddTrack"/></h5><br/>
+        <form action="upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="trackName"><fmt:message key="label.trackName"/></label>
+                <input class="form-control" id="trackName" type="text" name="track_name" value="" required="required" pattern="^[a-zA-Z0-9 -]{4,20}$"/>
+                <small class="form-text text-muted"><fmt:message key="input.fieldNameInfo"/></small>
+            </div>
+            <div class="form-group">
+                <label for="trackGenre"><fmt:message key="label.trackGenre"/></label>
+                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{4,20}"/>
+                <small class="form-text text-muted"><fmt:message key="input.genreFieldInfo"/></small>
+            </div>
+            <div class="form-group">
+                <label for="trackSinger"><fmt:message key="label.trackSinger"/></label>
+                <input class="form-control" id="trackSinger" type="text" name="singer" value="" required="required" pattern="^[a-zA-Z0-9 -]{4,20}$"/>
+                <small class="form-text text-muted"><fmt:message key="input.fieldNameInfo"/></small>
+            </div>
+            <div class="form-group">
+                <label for="trackFile"><fmt:message key="label.trackFile"/></label>
+                <input class="form-control" id="trackFile" type="file" name="file"/>
+            </div>
+            <p style="color: #FF0000;">${errorInputMessage}</p>
+            <br/>
+            <input class="btn btn-secondary" type="submit" name="submit" value="<fmt:message key="label.buttonUpload"/>"/>
+        </form>
+    </div>
 </body>
 <%--Footer of the page--%>
 <footer class="page-footer font-small bg-light pt-4">
@@ -206,4 +209,4 @@
         <a href="${pageContext.request.contextPath}"><fmt:message key="label.title"/></a>
     </div>
 </footer>
-<html/>
+</html>

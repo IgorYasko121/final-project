@@ -22,5 +22,6 @@ public class AttributeConstant {
     public static final String NUMBER_OF_PAGES = "noOfPages";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String RECORDS_PER_PAGE = "RECORDS_PER_PAGE";
+    public static final String ERROR_INPUT_MESSAGE = "errorInputMessage";
 
 }

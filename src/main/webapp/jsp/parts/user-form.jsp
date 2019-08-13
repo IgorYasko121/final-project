@@ -10,15 +10,18 @@
     <input type="hidden" name="command" value="sign_up"/>
     <div class="form-group">
         <label for="firstName"><fmt:message key="label.firstName"/></label>
-        <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+        <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{4,20}"/>
+        <small id="firstNameId" class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
     </div>
     <div class="form-group">
         <label for="lastName"><fmt:message key="label.lastName"/></label>
-        <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+        <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{4,20}"/>
+        <small id="lastNameId" class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
     </div>
     <div class="form-group">
         <label for="loginReg"><fmt:message key="label.loginReg"/></label>
         <input class="form-control" id="loginReg" type="text" name="login" value="" required="required" pattern="^[(\w)-]{4,20}"/>
+        <small id="loginRegId" class="form-text text-muted"><fmt:message key="input.loginfo"/></small>
     </div>
     <div class="form-group">
         <label for="passwordReg"><fmt:message key="label.passwordReg"/></label>

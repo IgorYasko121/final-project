@@ -1,6 +1,5 @@
 package com.igoryasko.justmusic.command;
 
-import com.igoryasko.justmusic.entity.Track;
 import com.igoryasko.justmusic.entity.User;
 import com.igoryasko.justmusic.exception.CommandException;
 import com.igoryasko.justmusic.exception.ServiceException;
@@ -14,7 +13,6 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Optional;
 
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
@@ -44,9 +42,7 @@ public class SignUpCommand implements Command {
                 if (!userService.checkLogin(login)) {
                     userService.registerUser(firstName, lastName, login, password, email);
                     HttpSession session = request.getSession();
-                    List<Track> tracks = trackService.findTopSixTracks();
-                    request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
-                    request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
+                    session.setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
                     session.setAttribute(AttributeConstant.ROLE, User.Role.USER);
                     session.setAttribute(AttributeConstant.USER, login);
                     commandResult.setPagePath(PageConstant.PATH_HOME);

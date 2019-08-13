@@ -41,6 +41,8 @@ public class TrackDAO extends AbstractDAO<Track> {
     @Language("SQL")
     private static final String FIND_TRACK_BY_ID = "SELECT track_id, track_name FROM tracks WHERE track_id=?";
     @Language("SQL")
+    private static final String FIND_TRACK_BY_PATH = "SELECT track_id, track_name FROM tracks WHERE track_path=?";
+    @Language("SQL")
     private static final String FIND_FAVORITES_TRACK = "SELECT tr.track_id ,tr.track_path, tr.track_name, g.genre_name, s.signer_name FROM tracks tr INNER JOIN users_tracks ut ON\n" +
             "            tr.track_id = ut.track_id INNER JOIN users us ON ut.user_id = us.user_id INNER JOIN genres g ON tr.genre_id = g.genre_id\n" +
             "INNER JOIN signers s ON tr.signer_id = s.signer_id where us.user_id = ?;";
@@ -100,6 +102,21 @@ public class TrackDAO extends AbstractDAO<Track> {
         }
         return track;
     }
+
+    public boolean findByName(String fileName) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_TRACK_BY_PATH)) {
+            preparedStatement.setString(1, fileName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return false;
+    }
+
 
     @Override
     public boolean delete(long id) throws DaoException {

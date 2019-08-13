@@ -6,10 +6,14 @@ package com.igoryasko.justmusic.validator;
  */
 public class TrackValidator {
 
-    private static final String NAME_REGEX_PATTERN = "^[a-zA-Z0-9 -]{3,30}$";
-    private static final String GENRE_REGEX_PATTERN = "^[A-Z]{3,20}";
+    private static final String NAME_REGEX_PATTERN = "^[a-zA-Z0-9 -]{4,20}$";
+    private static final String GENRE_REGEX_PATTERN = "^[A-Z]{4,20}";
 
     public boolean validate(String name, String genre, String singer) {
+        if (name == null || genre == null || singer == null){
+            return false;
+        }
+
         return !name.isBlank()
                 && !genre.isBlank()
                 && !singer.isBlank()

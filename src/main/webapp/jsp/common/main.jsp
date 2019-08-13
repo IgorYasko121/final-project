@@ -33,21 +33,17 @@
                 <input type="hidden" name="command" value="login"/>
                 <div class="form-group">
                     <label for="login"><fmt:message key="label.login"/>:</label>
-                    <input class="form-control" id="login" type="text" name="login" value="" required="required" pattern="^[(\w)-]{4,20}" placeholder="<fmt:message key="label.login"/>"/>
-<%--                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--%>
+                    <input class="form-control" id="login" type="text" name="login" value="" required="required"
+                           pattern="^[(\w)-]{4,20}" placeholder="<fmt:message key="label.login"/>"/>
                 </div>
                 <div class="form-group">
                     <label for="pass"><fmt:message key="label.password"/>:</label>
-                    <input class="form-control" id="pass" type="password" name="password" value="" required="required" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=\S+$).{6,12}$"/>
-<%--                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--%>
+                    <input class="form-control" id="pass" type="password" name="password" value="" required="required"
+                           pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=\S+$).{6,12}$" placeholder="<fmt:message key="label.password"/>" />
                 </div>
                 <br/>
                 <p style="color: #FF0000;">${errorLoginPassMessageAut}</p>
                 <br/>
-<%--                ${wrongAction}--%>
-<%--                <br/>--%>
-<%--                ${nullPage}--%>
-<%--                <br/>--%>
                 <input class="btn btn-primary" type="submit" value="<fmt:message key="label.buttonLogin"/>"/>
             </form>
             <h4><fmt:message key="label.regLabel"/></h4>

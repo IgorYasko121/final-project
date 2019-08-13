@@ -27,12 +27,6 @@ public class AllUsersCommand implements Command {
         this.service = receiver;
     }
 
-    /**
-     *
-     * @param request
-     * @return
-     * @throws CommandException
-     */
     @Override
     public Optional<CommandResult> execute(HttpServletRequest request) throws CommandException {
         CommandResult router = new CommandResult();
@@ -59,7 +53,7 @@ public class AllUsersCommand implements Command {
         request.setAttribute(AttributeConstant.CURRENT_PAGE, currentPage);
         request.setAttribute(AttributeConstant.RECORDS_PER_PAGE, RECORDS_PER_PAGE);
 
-        router.setPagePath(PageConstant.PAGE_ADMIN);
+        router.setPagePath(PageConstant.PATH_ADMIN);
         request.setAttribute(AttributeConstant.USERS, users);
         return Optional.of(router);
     }

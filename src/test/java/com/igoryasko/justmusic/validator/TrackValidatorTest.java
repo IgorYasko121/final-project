@@ -21,4 +21,12 @@ public class TrackValidatorTest {
         Assertions.assertFalse(new TrackValidator().validate(name, genre, singer));
     }
 
+    @Test
+    public void validateNullTest() {
+        String name = null;
+        String genre = "TRANCE";
+        String singer = "David Guetta";
+        Assertions.assertFalse(new TrackValidator().validate(name, genre, singer));
+    }
+
 }

@@ -12,21 +12,12 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="home"><fmt:message key="label.backPage"/></a>
+    </nav>
+</header>
 <div class="container-fluid">
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="controller?command=guest"><fmt:message key="label.guestPage"/></a>
-            <form action="controller" method="post">
-                <input type="hidden" name="command" value="language">
-                <input type="hidden" name="page" value="main">
-                <select name="locale" onchange="submit()">
-                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                    <option value="en_US" ${locale == 'en_US' ? 'selected' : ''}>English</option>
-                    <option value="ru_BY" ${locale == 'ru_BY' ? 'selected' : ''}>Белорусский</option>
-                </select>
-            </form>
-        </nav>
-    </header>
     <h5><fmt:message key="label.edit"/></h5><br/>
     <form name="updateForm" method="post" action="update">
         <input type="hidden" name="login" value="<c:out value="${user}"/>"/>
@@ -34,10 +25,12 @@
         <div class="form-group">
             <label for="firstName"><fmt:message key="label.firstName"/></label>
             <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+            <small class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
         </div>
         <div class="form-group">
             <label for="lastName"><fmt:message key="label.lastName"/></label>
             <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+            <small class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
         </div>
         <div class="form-group">
             <label for="passwordReg"><fmt:message key="label.passwordReg"/></label>
@@ -51,7 +44,7 @@
         </div>
         <p style="color: #FF0000;">${errorLoginPassMessage}</p>
         <br/>
-        <input type="submit" value="Update"/>
+        <input class="btn btn-secondary" type="submit" name="submit" value="<fmt:message key="label.update"/>"/>
     </form>
 </div>
 </body>

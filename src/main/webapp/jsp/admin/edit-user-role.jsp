@@ -12,16 +12,7 @@
     <body>
     <header>
         <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="controller?command=guest"><fmt:message key="label.guestPage"/></a>
-            <form action="controller" method="post">
-                <input type="hidden" name="command" value="language">
-                <input type="hidden" name="page" value="main">
-                <select name="locale" onchange="submit()">
-                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                    <option value="en_US" ${locale == 'en_US' ? 'selected' : ''}>English</option>
-                    <option value="ru_BY" ${locale == 'ru_BY' ? 'selected' : ''}>Белорусский</option>
-                </select>
-            </form>
+            <a class="navbar-brand" href="admin"><fmt:message key="label.backPage"/></a>
         </nav>
     </header>
         <div class="container-fluid">
@@ -29,12 +20,17 @@
             <form name="updateForm" method="post" action="update">
                 <input type="hidden" name="command" value="update_user_role"/>
                 <input type="hidden" name="user_id" value="<c:out value="${user_id}"/>"/>
-                Role:<br/>
-                <input type="text" name="role" value="" required="required" pattern="user|admin|guest" />
+                <div class="form-group">
+                    <label for="role"><fmt:message key="label.role"/></label>
+                    <input class="form-control" id="role" type="text" name="role" value="" required="required" pattern="USER|ADMIN|GUEST"/>
+                    <small class="form-text text-muted"><fmt:message key="input.roleinfo"/></small>
+                </div>
+<%--                Role:<br/>--%>
+<%--                <input type="text" name="role" value="" required="required" pattern="user|admin|guest" />--%>
                 <br/>
                 ${errorLoginPassMessage}
                 <br/>
-                <input type="submit" value="Update"/>
+                <input class="btn btn-secondary" type="submit" name="submit" value="<fmt:message key="label.update"/>"/>
             </form>
         </div>
     </body>

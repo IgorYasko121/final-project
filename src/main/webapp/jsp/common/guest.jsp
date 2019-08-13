@@ -36,7 +36,7 @@
 </body>
     <footer class="page-footer font-small bg-light pt-4">
         <div class="footer-copyright text-center py-3"><fmt:message key="label.footer"/>
-            <a href="${pageContext.request.contextPath}"><fmt:message key="label.login"/></a>
+            <a href="${pageContext.request.contextPath}"><fmt:message key="label.title"/></a>
         </div>
     </footer>
 </html>

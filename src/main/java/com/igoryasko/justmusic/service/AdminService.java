@@ -99,7 +99,6 @@ public class AdminService {
         Genre genre;
         Track newTrack;
         try {
-            // TODO: 11.08.2019 copyPast
             singer = singerDao.findByName(track.getSinger().getName());
             if (singer == null) {
                 singer = new Singer(track.getSinger().getName());

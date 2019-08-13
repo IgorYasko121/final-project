@@ -1,6 +1,5 @@
 package com.igoryasko.justmusic.command;
 
-import com.igoryasko.justmusic.entity.Track;
 import com.igoryasko.justmusic.entity.User;
 import com.igoryasko.justmusic.exception.CommandException;
 import com.igoryasko.justmusic.exception.ServiceException;
@@ -14,11 +13,14 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Optional;
 
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
+/**
+ * The {@code LogIn Command} class checks the user's role and poisons the page.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class LogInCommand implements Command {
 
@@ -46,15 +48,7 @@ public class LogInCommand implements Command {
                 throw new CommandException(e);
             }
             if (role.equals(User.Role.USER)) {
-                List<Track> tracks;
-                try {
-                    tracks = trackService.findTopSixTracks();
-                } catch (ServiceException e) {
-                    log.info(e);
-                    throw new CommandException(e);
-                }
-                request.getSession().setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
-                request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
+                session.setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
                 session.setAttribute(AttributeConstant.ROLE, role);
                 session.setAttribute(AttributeConstant.USER, login);
                 commandResult.setPagePath(PageConstant.PAGE_HOME);

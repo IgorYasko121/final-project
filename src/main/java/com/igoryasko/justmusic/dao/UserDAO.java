@@ -35,28 +35,25 @@ public class UserDAO extends AbstractDAO<User> {
     @Language("SQL")
     private static final String FIND_USER_BY_ID = "SELECT user_id, first_name, last_name FROM users WHERE user_id=?";
     @Language("SQL")
-    private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE user_id=?";
+    private static final String FIND_USER_BY_LOGIN_PASSWORD = "SELECT password, role FROM users WHERE login=?";
     @Language("SQL")
-    private static final String INSERT_USER =
-            "INSERT INTO users (first_name, last_name, login, password, role, e_mail, is_active) VALUES(?,?,?,?,?,?,?)";
+    private static final String FIND_USER_BY_LOGIN = "SELECT user_id, login FROM users WHERE login=?";
+    @Language("SQL")
+    private static final String FIND_COUNT_BY_ID = "SELECT COUNT(user_id) FROM users";
+    @Language("SQL")
+    private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE user_id=?";
     @Language("SQL")
     private static final String DELETE_USER =
             "DELETE FROM users WHERE user_id=? AND first_name=? AND last_name=?";
+    @Language("SQL")
+    private static final String INSERT_USER =
+            "INSERT INTO users (first_name, last_name, login, password, role, e_mail) VALUES(?,?,?,?,?,?)";
     @Language("SQL")
     private static final String UPDATE_USER =
             "UPDATE users SET first_name=?, last_name=?, password=?, e_mail=? WHERE login=?";
     @Language("SQL")
     private static final String UPDATE_USER_ROLE =
             "UPDATE users SET role=? WHERE user_id=?";
-    @Language("SQL")
-    private static final String FIND_USER_BY_LOGIN_PASSWORD =
-            "SELECT password, role FROM users WHERE login=?";
-    @Language("SQL")
-    private static final String FIND_USER_BY_LOGIN =
-            "SELECT user_id, login FROM users WHERE login=?";
-    @Language("SQL")
-    private static final String FIND_COUNT_BY_ID =
-            "SELECT COUNT(user_id) FROM users";
 
     @Override
     public List<User> findAll() throws DaoException {
@@ -183,7 +180,6 @@ public class UserDAO extends AbstractDAO<User> {
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, String.valueOf(user.getRole()));
             preparedStatement.setString(6, user.getEmail());
-            preparedStatement.setString(7, String.valueOf(user.isActive()));
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 return true;

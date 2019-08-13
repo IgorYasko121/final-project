@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ConnectionPoolTest {
 
@@ -13,6 +14,11 @@ public class ConnectionPoolTest {
         Connection connection;
         connection = ConnectionPool.getInstance().takeConnection();
         Assertions.assertNotNull(connection);
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

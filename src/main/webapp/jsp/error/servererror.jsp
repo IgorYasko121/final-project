@@ -9,14 +9,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}"><fmt:message key="label.registerPage"/></a>
+    </nav>
+</header>
     <div class="container-fluid">
-    <h1>ServerError</h1>
+    <h1><fmt:message key="label.serverError"/></h1>
+        <br/>
+        <p><fmt:message key="label.errorMessage"/></p>
+        <br/>
     Logic error: ${error}
-    </div>
-    <div class="container-fluid">
-        <h3>Main page</h3>
-        <a href="${pageContext.request.contextPath}">Main page</a>
-        <hr/>
     </div>
 </body>
 </html>

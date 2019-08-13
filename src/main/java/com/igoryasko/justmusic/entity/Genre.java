@@ -17,4 +17,5 @@ public class Genre extends Entity {
     public Genre(String title) {
         this.name = title;
     }
+
 }

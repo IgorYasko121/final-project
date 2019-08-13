@@ -12,16 +12,7 @@
 <body>
 <header>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="controller?command=guest"><fmt:message key="label.guestPage"/></a>
-        <form action="controller" method="post">
-            <input type="hidden" name="command" value="language">
-            <input type="hidden" name="page" value="main">
-            <select name="locale" onchange="submit()">
-                <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                <option value="en_US" ${locale == 'en_US' ? 'selected' : ''}>English</option>
-                <option value="ru_BY" ${locale == 'ru_BY' ? 'selected' : ''}>Белорусский</option>
-            </select>
-        </form>
+        <a class="navbar-brand" href="admin"><fmt:message key="label.backPage"/></a>
     </nav>
 </header>
     <div class="container-fluid">
@@ -31,20 +22,23 @@
             <input type="hidden" name="track_id" value="<c:out value="${track_id}"/>"/>
             <div class="form-group">
                 <label for="trackName"><fmt:message key="label.trackName"/></label>
-                <input class="form-control" id="trackName" type="text" name="track_name" value="" required="required" pattern="^[a-zA-Z0-9 -]{3,30}$"/>
+                <input class="form-control" id="trackName" type="text" name="track_name" value="" required="required" pattern="^[a-zA-Z0-9 -]{4,20}$"/>
+                <small class="form-text text-muted"><fmt:message key="input.fieldNameInfo"/></small>
             </div>
             <div class="form-group">
                 <label for="trackGenre"><fmt:message key="label.trackGenre"/></label>
-                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{3,20}"/>
+                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{4,20}"/>
+                <small class="form-text text-muted"><fmt:message key="input.genreFieldInfo"/></small>
             </div>
             <div class="form-group">
                 <label for="trackSinger"><fmt:message key="label.trackSinger"/></label>
-                <input class="form-control" id="trackSinger" type="text" name="singer" value="" required="required" pattern="^[a-zA-Z0-9 -]{3,30}$"/>
+                <input class="form-control" id="trackSinger" type="text" name="singer" value="" required="required" pattern="^[a-zA-Z0-9 -]{4,20}$"/>
+                <small class="form-text text-muted"><fmt:message key="input.fieldNameInfo"/></small>
             </div>
             <br/>
             ${errorLoginPassMessage}
             <br/>
-            <input type="submit" value="Update"/>
+            <input class="btn btn-secondary" type="submit" name="submit" value="<fmt:message key="label.update"/>"/>
         </form>
     </div>
 </body>

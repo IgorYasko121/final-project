@@ -17,6 +17,24 @@ public class TrackService {
     private TransactionHelper helper;
     private TrackDAO trackDAO = TrackDAO.getInstance();
 
+    /**
+     * Check exist track name
+     * @return if user exists return User.Role
+     */
+    public boolean checkTrack(String fileName) throws ServiceException {
+        helper = new TransactionHelper();
+        helper.begin(trackDAO);
+        try {
+            log.info("Check track name: " + fileName);
+            return trackDAO.findByName(fileName);
+        } catch (DaoException e) {
+            log.error(e);
+            throw new ServiceException(e);
+        }finally {
+            helper.end();
+        }
+    }
+
     public boolean addTrack(String trackName, String fileNameDb, Genre genre, Singer singer) throws ServiceException {
         helper = new TransactionHelper();
         Track track = new Track(trackName, fileNameDb, genre, singer);
