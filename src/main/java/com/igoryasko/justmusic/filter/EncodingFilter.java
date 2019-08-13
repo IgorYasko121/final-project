@@ -22,8 +22,8 @@ public class EncodingFilter implements Filter {
         if (code != null && !code.equalsIgnoreCase(codeRequest)) {
             servletRequest.setCharacterEncoding(code);
             servletResponse.setCharacterEncoding(code);
-            filterChain.doFilter(servletRequest, servletResponse);
         }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
