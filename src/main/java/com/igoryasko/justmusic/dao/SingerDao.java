@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,39 +39,22 @@ public class SingerDao extends AbstractDAO<Singer> {
     private static final String FIND_SINGER_BY_NAME =
             "SELECT signer_id, signer_name FROM signers WHERE signer_name=?";
 
-    @Override
-    public List<Singer> findAll() throws DaoException {
-        return null;
-    }
-
-    @Override
-    public Singer findById(long id) throws DaoException {
-        return null;
-    }
-
-    @Override
-    public boolean delete(long id) throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Singer entity) throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean create(Singer singer) throws DaoException {
-        try (PreparedStatement pr = connection.prepareStatement(INSERT_SINGER)) {
-            pr.setString(1, singer.getName());
-            int result = pr.executeUpdate();
-            if (result != 0) {
-                return true;
+    public Singer findByName(String name) throws DaoException {
+        Singer singer = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_SINGER_BY_NAME)) {
+            preparedStatement.setString(1, name);
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                if (resultSet.next()){
+                    singer = new Singer();
+                    singer.setSingerId(resultSet.getLong(1));
+                    singer.setName(resultSet.getString(2));
+                }
             }
         } catch (SQLException e) {
-            log.info("Create singer: " + singer);
+            log.debug("Find singer: " + name);
             throw new DaoException(e);
         }
-        return false;
+        return singer;
     }
 
     public long createAndGetId(Singer singer) throws DaoException {
@@ -90,26 +74,58 @@ public class SingerDao extends AbstractDAO<Singer> {
     }
 
     @Override
-    public boolean update(Singer entity) throws DaoException {
+    public boolean create(Singer singer) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(INSERT_SINGER)) {
+            pr.setString(1, singer.getName());
+            int result = pr.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.info("Create singer: " + singer);
+            throw new DaoException(e);
+        }
         return false;
     }
 
-    public Singer findByName(String name) throws DaoException {
-        Singer singer = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_SINGER_BY_NAME)) {
-            preparedStatement.setString(1, name);
-            try (ResultSet resultSet = preparedStatement.executeQuery()){
-                if (resultSet.next()){
-                    singer = new Singer();
-                    singer.setSingerId(resultSet.getLong(1));
-                    singer.setName(resultSet.getString(2));
-                }
-            }
-        } catch (SQLException e) {
-            log.debug("Find singer: " + name);
-            throw new DaoException(e);
-        }
-        return singer;
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public List<Singer> findAll() throws DaoException {
+        return new ArrayList<>();
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public Singer findById(long id) throws DaoException {
+        return new Singer();
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean delete(long id) throws DaoException {
+        return false;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean delete(Singer entity) throws DaoException {
+        return false;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean update(Singer entity) throws DaoException {
+        return false;
     }
 
 }

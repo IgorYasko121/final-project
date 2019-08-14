@@ -97,21 +97,6 @@ public class GenreDAO extends AbstractDAO<Genre> {
         return res;
     }
 
-    @Override
-    public boolean delete(long id) throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Genre entity) throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean update(Genre entity) throws DaoException {
-        return false;
-    }
-
     public Genre findByName(String name) throws DaoException {
         Genre genre = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_GENRE_BY_NAME)) {
@@ -128,6 +113,30 @@ public class GenreDAO extends AbstractDAO<Genre> {
             throw new DaoException(e);
         }
         return genre;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean delete(long id) throws DaoException {
+        return false;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean delete(Genre entity) throws DaoException {
+        return false;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public boolean update(Genre entity) throws DaoException {
+        return false;
     }
 
 }

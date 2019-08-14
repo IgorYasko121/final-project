@@ -8,7 +8,7 @@ class LanguageManagerTest {
     @Test
     void getMessageRusTest() {
         String actual = LanguageManager.getMessage("registration.failed", "ru_RU");
-        String expected = "Неверно заполненные данные";
+        String expected = "Неверно заполнены данные";
         Assertions.assertEquals(actual, expected);
     }
 

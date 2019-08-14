@@ -11,7 +11,7 @@ public class UserValidatorTest {
         String lastName = "Мороз";
         String login = "admin";
         String password = "Admin1";
-        String email = "adm121@gmail.com";
+        String email = "admin123@gmail.com";
         Assertions.assertTrue(new UserValidator().validate(firstName, lastName, email, login, password));
     }
 

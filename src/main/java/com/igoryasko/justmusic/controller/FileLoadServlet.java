@@ -33,6 +33,8 @@ import static com.igoryasko.justmusic.util.ParameterConstant.LOCALE;
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileLoadServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 2098317608976171919L;
+
     private static final String UPLOAD_DIR = "uploads";
 
     @Override

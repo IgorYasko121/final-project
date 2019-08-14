@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
         <label for="email"><fmt:message key="label.email"/></label>
-        <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,15}$).{1,15}@.{5,15}$"/>
+        <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^[A-Za-z0-9_.-]{3,20}@[A-Za-z.]{3,15}$"/>
     </div>
     <br/>
     <p style="color: #FF0000;">${errorLoginPassMessage}</p>
