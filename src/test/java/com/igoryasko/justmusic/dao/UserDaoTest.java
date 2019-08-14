@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class UserDaoTest {
 
     @Test
-    public void findByName() throws DaoException {
+    public void findByLoginTest() throws DaoException {
         TransactionHelper helper = new TransactionHelper();
         UserDAO userDao = UserDAO.getInstance();
         helper.begin(userDao);

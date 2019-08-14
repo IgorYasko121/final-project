@@ -2,6 +2,7 @@ package com.igoryasko.justmusic.dao;
 
 import com.igoryasko.justmusic.entity.Singer;
 import com.igoryasko.justmusic.exception.DaoException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SingerDaoTest {
@@ -11,9 +12,10 @@ public class SingerDaoTest {
         TransactionHelper helper = new TransactionHelper();
         SingerDao singerDao = SingerDao.getInstance();
         helper.begin(singerDao);
-        Singer actual = singerDao.findByName("aa");
-        System.out.println(actual);
+        String expected = "Queen";
+        Singer singer = singerDao.findByName(expected);
         helper.end();
-//        Assertions.assertTrue();
+        Assertions.assertEquals(singer.getName(), expected);
     }
+
 }

@@ -1,19 +1,19 @@
 package com.igoryasko.justmusic.service;
 
-import com.igoryasko.justmusic.dao.TransactionHelper;
-import com.igoryasko.justmusic.dao.UserDAO;
 import com.igoryasko.justmusic.entity.User;
-import com.igoryasko.justmusic.exception.DaoException;
+import com.igoryasko.justmusic.exception.ServiceException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UserServiceTest {
 
     @Test
-    public void findByLoginPasswordTest() throws DaoException {
-        TransactionHelper helper = new TransactionHelper();
-        UserDAO userDAO = UserDAO.getInstance();
-        helper.beginTransaction(userDAO);
-//        User res = userDAO.findByLoginPassword("c", "c");
-//        System.out.println(res);
+    public void checkUserTest() throws ServiceException {
+        UserService service = new UserService();
+        String login = "Igor";
+        String pass = "Igor11";
+        User.Role expected = User.Role.USER;
+        User.Role actual = service.checkUser(login, pass);
+        Assertions.assertSame(expected, actual);
     }
 }
