@@ -11,8 +11,7 @@ public class ConnectionPoolTest {
 
     @Test
     public void testTakeConnectionFromPool() throws DaoException {
-        Connection connection;
-        connection = ConnectionPool.getInstance().takeConnection();
+        Connection connection = ConnectionPool.getInstance().takeConnection();
         Assertions.assertNotNull(connection);
         try {
             connection.close();
@@ -21,5 +20,11 @@ public class ConnectionPoolTest {
         }
     }
 
+    @Test
+    public void testReleaseConnection(){
+        ProxyConnection connection = (ProxyConnection) ConnectionPool.getInstance().takeConnection();
+        boolean expected = ConnectionPool.getInstance().releaseConnection(connection);
+        Assertions.assertTrue(expected);
+    }
 
 }

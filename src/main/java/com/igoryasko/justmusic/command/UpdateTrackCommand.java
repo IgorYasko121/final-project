@@ -18,7 +18,6 @@ import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
 /**
  * The {@code UpdateTrackCommand} class updates track.
- *
  * @author Igor Yasko on 2019-11-08.
  */
 @Log4j2

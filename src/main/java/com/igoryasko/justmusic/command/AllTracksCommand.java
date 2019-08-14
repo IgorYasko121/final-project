@@ -15,6 +15,10 @@ import java.util.Optional;
 
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
+/**
+ * The {@code AllUsersCommand} provides a function to gets all tracks and pagination.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class AllTracksCommand implements Command {
 

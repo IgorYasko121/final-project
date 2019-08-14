@@ -6,6 +6,11 @@ import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
 
+/**
+ * The {@code Transaction Helper} class provides methods for setting up a Dao connection
+ * and also provides an implementation of transactions.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class TransactionHelper {
 

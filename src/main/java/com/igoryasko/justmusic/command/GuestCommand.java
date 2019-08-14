@@ -14,6 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The {@code Guest Command} class poisons the user to the guest page.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class GuestCommand implements Command {
 

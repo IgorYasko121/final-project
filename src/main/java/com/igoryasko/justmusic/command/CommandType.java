@@ -4,6 +4,10 @@ import com.igoryasko.justmusic.service.AdminService;
 import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.service.UserService;
 
+/**
+ * The {@code CommandResult} provides command for users.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public enum CommandType {
 
     SIGN_UP(new SignUpCommand(new UserService(), new TrackService())),

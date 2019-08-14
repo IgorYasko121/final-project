@@ -11,6 +11,10 @@ import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 
+/**
+ * The class {@code AdminService} provides functional for track.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class TrackService {
 
@@ -31,38 +35,6 @@ public class TrackService {
             log.error(e);
             throw new ServiceException(e);
         }finally {
-            helper.end();
-        }
-    }
-
-    public boolean addTrack(String trackName, String fileNameDb, Genre genre, Singer singer) throws ServiceException {
-        helper = new TransactionHelper();
-        Track track = new Track(trackName, fileNameDb, genre, singer);
-        helper.begin(trackDAO);
-        try {
-            trackDAO.create(track);
-            log.debug("Add track");
-            return true;
-        } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        } finally {
-            helper.end();
-        }
-    }
-
-    public List<Track> findAllTracks() throws ServiceException {
-        helper = new TransactionHelper();
-        List<Track> tracks;
-        helper.begin(trackDAO);
-        try {
-            tracks = trackDAO.findAll();
-            log.debug("Find all tracks");
-            return tracks;
-        } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        } finally {
             helper.end();
         }
     }

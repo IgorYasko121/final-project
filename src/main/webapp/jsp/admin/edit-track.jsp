@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="trackGenre"><fmt:message key="label.trackGenre"/></label>
-                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{4,20}"/>
+                <input class="form-control" id="trackGenre" type="text" name="genre" value="" required="required" pattern="^[A-Z]{3,20}"/>
                 <small class="form-text text-muted"><fmt:message key="input.genreFieldInfo"/></small>
             </div>
             <div class="form-group">

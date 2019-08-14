@@ -29,10 +29,6 @@ public class ConnectionPool {
         init();
     }
 
-    /**
-     *
-     * @return instance of the class ConnectionPool.
-     */
     public static ConnectionPool getInstance() {
         if (!isCreate.get()) {
             try {
@@ -69,15 +65,9 @@ public class ConnectionPool {
                 log.error("Connection couldn't create", e);
             }
         }
-        //todo
         checkAvailableConnections();
     }
 
-    /**
-     * Create a connection to the database
-     * @return connection
-     * @throws SQLException if connection can't create
-     */
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection(dbConfiguration.getURL(),
                 dbConfiguration.getUSER(), dbConfiguration.getPASSWORD());
@@ -94,10 +84,6 @@ public class ConnectionPool {
         }
     }
 
-    /**
-     * Gives a connection to the database
-     * @return Connection
-     */
     public Connection takeConnection() {
         ProxyConnection connection = null;
         try {
@@ -110,27 +96,17 @@ public class ConnectionPool {
         return connection;
     }
 
-    /**
-     *
-     * @param connection
-     * @return Connection
-     */
     public boolean releaseConnection(Connection connection) {
-        if (connection.getClass().equals(ProxyConnection.class)) {
+        if (connection.getClass() == ProxyConnection.class) {
             ProxyConnection proxyConnection = (ProxyConnection) connection;
-            availableConnections.offer(proxyConnection);
+            boolean result = availableConnections.offer(proxyConnection);
             log.trace("Connections are released");
-            return true;
+            return result;
         } else {
             return false;
         }
     }
 
-    /**
-     * Destroys the connection pool
-     * @throws SQLException
-     * @throws InterruptedException
-     */
     public void destroyConnectionPool() throws SQLException, InterruptedException {
         if (isCreate.get()) {
             lock.lock();
@@ -139,8 +115,8 @@ public class ConnectionPool {
                     ProxyConnection connection = availableConnections.take();
                     connection.closeConnection();
                 }
-                isCreate.set(false);
                 instance = null;
+                isCreate.set(false);
             } finally {
                 lock.unlock();
             }
@@ -148,10 +124,6 @@ public class ConnectionPool {
         log.debug("Connection pool is destroyed");
     }
 
-    /**
-     * Deregistered drivers
-     * @throws SQLException if can't deregister drivers
-     */
     public void deregisterDriver() throws SQLException {
         Enumeration<Driver> driverEnumeration = DriverManager.getDrivers();
         while (driverEnumeration.hasMoreElements()) {

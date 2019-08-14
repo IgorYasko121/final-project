@@ -5,6 +5,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
+/**
+ * The class {@code EncodingFilter} sets request and response CharacterEncoding to UTF-8.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @WebFilter(urlPatterns = {"/*"},
         initParams = {@WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})
 public class EncodingFilter implements Filter {

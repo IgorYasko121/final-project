@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The {@code FavoriteCommand} class provides favorite music for users.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class FavoriteCommand implements Command {
 

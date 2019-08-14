@@ -14,9 +14,13 @@ import java.util.Set;
 
 import static com.igoryasko.justmusic.command.CommandType.*;
 
+/**
+ * The class {@code RoleCommandFilter} defends from incorrect input user's role command.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 @WebFilter(urlPatterns = {"/controller", "/update"})
-public class CommandFilter implements Filter {
+public class RoleCommandFilter implements Filter {
 
     private static final Set<CommandType> COMMAND_FOR_GUEST = Set.of(GUEST, LANGUAGE, SIGN_UP, LOGIN);
     private static final Set<CommandType> COMMAND_FOR_ADMIN = Set.of(GUEST, LANGUAGE, ALL_USERS, ALL_TRACKS, TO_UPDATE_ROLE, TO_UPDATE_TRACK,

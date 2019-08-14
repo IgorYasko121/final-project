@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code UserDAO} class provides an implementation of methods for working with database table users.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public class UserDAO extends AbstractDAO<User> {
 
     private static UserDAO instance;

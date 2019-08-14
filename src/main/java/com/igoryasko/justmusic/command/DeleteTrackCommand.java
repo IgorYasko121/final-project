@@ -9,6 +9,10 @@ import com.igoryasko.justmusic.util.ParameterConstant;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+/**
+ * The {@code DeleteTrackCommand} class deletes track from database.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public class DeleteTrackCommand implements Command {
 
     private TrackService service;

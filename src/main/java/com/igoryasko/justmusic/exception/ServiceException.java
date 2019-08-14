@@ -1,5 +1,9 @@
 package com.igoryasko.justmusic.exception;
 
+/**
+ * Exception for service layer.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public class ServiceException extends Exception {
 
     public ServiceException() {

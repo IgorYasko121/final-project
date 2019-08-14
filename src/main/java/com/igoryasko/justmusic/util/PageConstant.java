@@ -23,6 +23,5 @@ public class PageConstant {
 
     public static final String PATH_HOME = "/home";
     public static final String PATH_ADMIN = "/admin";
-    public static final String PATH_CONTROLLER = "/controller";
 
 }

@@ -12,7 +12,7 @@ public class UserValidator {
 
     private static final String NAME_REGEX_PATTERN = "[a-zA-Zа-яА-ЯёЁ]{4,20}";
 
-    private static final String EMAIL_REGEX_PATTERN = "^(?=.{5,30}$).{1,30}@.{5,30}$";
+    private static final String EMAIL_REGEX_PATTERN = "^(?=.{2,15}$).{1,15}@.{5,15}$";
 
     private static final String ROLE_REGEX_PATTERN = "USER|ADMIN|GUEST";
 

@@ -1,9 +1,7 @@
-<%--Form for update user--%>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${ not empty locale ? locale : pageContext.request.locale }" scope="session"/>
-<fmt:setLocale value="${locale}" scope="session"/>
+<fmt:setLocale value="${locale}" scope="session" />
 <fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
@@ -17,6 +15,7 @@
         <a class="navbar-brand" href="home"><fmt:message key="label.backPage"/></a>
     </nav>
 </header>
+<%--Form for update user--%>
 <div class="container-fluid">
     <h5><fmt:message key="label.edit"/></h5><br/>
     <form name="updateForm" method="post" action="update">
@@ -24,12 +23,12 @@
         <input type="hidden" name="command" value="update_user"/>
         <div class="form-group">
             <label for="firstName"><fmt:message key="label.firstName"/></label>
-            <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+            <input class="form-control" id="firstName" type="text" name="firstName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{4,20}"/>
             <small class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
         </div>
         <div class="form-group">
             <label for="lastName"><fmt:message key="label.lastName"/></label>
-            <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{2,20}"/>
+            <input class="form-control" id="lastName" type="text" name="lastName" value="" required="required" pattern="[a-zA-Zа-яА-ЯёЁ]{4,20}"/>
             <small class="form-text text-muted"><fmt:message key="input.fieldinfo"/></small>
         </div>
         <div class="form-group">
@@ -40,7 +39,7 @@
         </div>
         <div class="form-group">
             <label for="email"><fmt:message key="label.email"/></label>
-            <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,30}$).{1,30}@.{2,30}$"/>
+            <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,15}$).{1,15}@.{5,15}$"/>
         </div>
         <p style="color: #FF0000;">${errorLoginPassMessage}</p>
         <br/>

@@ -6,6 +6,7 @@
 <html>
 <head>
 </head>
+<%--Parts for user form input--%>
 <body>
     <input type="hidden" name="command" value="sign_up"/>
     <div class="form-group">
@@ -31,7 +32,7 @@
     </div>
     <div class="form-group">
         <label for="email"><fmt:message key="label.email"/></label>
-        <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,30}$).{1,30}@.{2,30}$"/>
+        <input class="form-control" id="email" type="email" name="email" value="" required="required" pattern="^(?=.{2,15}$).{1,15}@.{5,15}$"/>
     </div>
     <br/>
     <p style="color: #FF0000;">${errorLoginPassMessage}</p>

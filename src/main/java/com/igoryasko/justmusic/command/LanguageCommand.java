@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
+/**
+ * The class {@code LanguageCommand} changes language between Russian English and Belarusian.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public class LanguageCommand implements Command {
 
     @Override

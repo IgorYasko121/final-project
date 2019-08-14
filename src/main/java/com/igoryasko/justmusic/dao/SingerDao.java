@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+/**
+ * The {@code SingerDao} class provides an implementation of methods for working with database table singers.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class SingerDao extends AbstractDAO<Singer> {
 

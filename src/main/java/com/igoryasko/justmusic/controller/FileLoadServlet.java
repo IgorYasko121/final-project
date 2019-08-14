@@ -24,7 +24,6 @@ import static com.igoryasko.justmusic.util.ParameterConstant.LOCALE;
 
 /**
  * The class {@code FileLoadServlet} uploads music to the server.
- *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2

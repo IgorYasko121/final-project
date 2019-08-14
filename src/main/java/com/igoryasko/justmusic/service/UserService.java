@@ -10,6 +10,10 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
+/**
+ * The class {@code AdminService} provides functional for user.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class UserService {
 
@@ -70,22 +74,6 @@ public class UserService {
         }
     }
 
-    public List<User> findAllUsers() throws ServiceException {
-        helper = new TransactionHelper();
-        List<User> users;
-        helper.begin(userDAO);
-        try {
-            users = userDAO.findAll();
-            log.info("Find all users");
-            return users;
-        } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }finally {
-            helper.end();
-        }
-    }
-
     public List<User> findLimitUsers(int recordsPerPage ,int currentPage) throws ServiceException {
         helper = new TransactionHelper();
         int startPosition = currentPage * recordsPerPage - recordsPerPage;
@@ -111,22 +99,6 @@ public class UserService {
             numOfRows = userDAO.findCountById();
             log.info("Find all users rows");
             return numOfRows;
-        } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }finally {
-            helper.end();
-        }
-    }
-
-    public User findUserById(long userId) throws ServiceException {
-        helper = new TransactionHelper();
-        User users;
-        helper.begin(userDAO);
-        try {
-            users = userDAO.findById(userId);
-            log.info("Find users: " + userId);
-            return users;
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);

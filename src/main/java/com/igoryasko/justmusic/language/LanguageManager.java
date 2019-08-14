@@ -14,11 +14,6 @@ public class LanguageManager {
 
     private LanguageManager() { }
 
-    /**
-     * @param key is a marker to find attribute.
-     * @param locale is a current language.
-     * @return String locale.
-     */
     public static String getMessage(String key, String locale) {
         locale = locale != null ? locale : DEFAULT_LOCALE;
         ResourceBundle resourceBundle = ResourceBundle.getBundle(CONTENT, formatLocale(locale));

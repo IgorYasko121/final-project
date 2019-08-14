@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 /**
- * The class {@code LogOutCommand} .
+ * The class {@code LogOutCommand} provides an exit from session and poisons to the main page.
  * @author Igor Yasko on 2019-07-19.
  */
 public class LogOutCommand implements Command {

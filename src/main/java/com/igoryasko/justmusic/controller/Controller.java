@@ -20,9 +20,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Get all user requests and redirects to the necessary commands then gives the necessary submissions.
+ */
 @Log4j2
 @WebServlet(urlPatterns = {"/controller", "/login", "/update", "/delete"}, loadOnStartup = 1)
 public class Controller extends HttpServlet {
+
+    private static final long serialVersionUID = 6850944695979895286L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,8 +50,7 @@ public class Controller extends HttpServlet {
         try {
             resultOptional = command.execute(request);
         } catch (CommandException e) {
-            log.error(e);
-            e.printStackTrace();
+            log.error("Servlet layer exception :", e);
             request.setAttribute(AttributeConstant.ERROR, e);
             request.getRequestDispatcher(PageConstant.PAGE_SERVER_ERROR).forward(request, response);
             return;

@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+/**
+ * The {@code SingerDao} class provides an implementation of methods for working with database table genres.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class GenreDAO extends AbstractDAO<Genre> {
 
@@ -81,10 +85,10 @@ public class GenreDAO extends AbstractDAO<Genre> {
         try (PreparedStatement pr = connection.prepareStatement(INSERT_GENRE, Statement.RETURN_GENERATED_KEYS)) {
             pr.setString(1, genre.getName());
             pr.executeUpdate();
-            // TODO: 11.08.2019 close rs
-            ResultSet resultSet = pr.getGeneratedKeys();
-            if (resultSet.next()) {
-                res = resultSet.getLong(1);
+            try (ResultSet resultSet = pr.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    res = resultSet.getLong(1);
+                }
             }
         } catch (SQLException e) {
             log.info("Create genre: " + genre);

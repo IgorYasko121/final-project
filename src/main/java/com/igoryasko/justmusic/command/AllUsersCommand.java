@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * The {@code AllUsersCommand} provides a function to gets all users and pagination.
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2

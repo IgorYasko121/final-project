@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The class {@code RoleFilter} defends from an incorrect command from user's role input.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 @WebFilter(urlPatterns = {"/jsp/*", "/admin", "/home"})
 public class RoleFilter implements Filter {

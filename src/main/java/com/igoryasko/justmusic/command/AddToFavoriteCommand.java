@@ -19,7 +19,6 @@ import static com.igoryasko.justmusic.util.ParameterConstant.TRACK_ID;
 
 /**
  * The {@code AddToFavoriteCommand} add track to the favorite list.
- *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2

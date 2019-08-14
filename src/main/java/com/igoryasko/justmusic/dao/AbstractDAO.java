@@ -7,7 +7,10 @@ import com.igoryasko.justmusic.exception.DaoException;
 import java.sql.Connection;
 import java.util.List;
 
-
+/**
+ * The {@code AbstractDAO} class provides methods for working with the database.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public abstract class AbstractDAO<T extends Entity> {
 
     protected Connection connection;

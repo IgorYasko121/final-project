@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.HashMap;
 
+/**
+ * The {@code CommandResult} provides command for users.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Data
 public class CommandResult {
 

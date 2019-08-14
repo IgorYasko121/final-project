@@ -18,7 +18,7 @@ import java.util.Optional;
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
 /**
- * The {@code LogIn Command} class checks the user's role and poisons the page.
+ * The {@code LogIn Command} class checks the user's role and poisons to the necessary page.
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2

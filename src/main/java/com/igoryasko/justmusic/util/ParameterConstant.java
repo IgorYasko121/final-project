@@ -16,11 +16,9 @@ public class ParameterConstant {
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
-    public static final String LOGOUT = "logout";
     public static final String LOCALE = "locale";
     public static final String PAGE = "page";
     public static final String ROLE = "role";
-    public static final String ISACTIVE = "active";
     public static final String TRACK_NAME = "track_name";
     public static final String GENRE = "genre";
     public static final String SINGER = "singer";

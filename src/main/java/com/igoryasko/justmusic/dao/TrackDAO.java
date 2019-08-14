@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code TrackDAO} class provides an implementation of methods for working with database table tracks.
+ * @author Igor Yasko on 2019-07-19.
+ */
 public class TrackDAO extends AbstractDAO<Track> {
 
     private static TrackDAO instance;

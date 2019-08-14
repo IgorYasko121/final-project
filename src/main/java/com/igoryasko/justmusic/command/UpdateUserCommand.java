@@ -1,19 +1,15 @@
 package com.igoryasko.justmusic.command;
 
-import com.igoryasko.justmusic.entity.Track;
 import com.igoryasko.justmusic.exception.CommandException;
 import com.igoryasko.justmusic.exception.ServiceException;
 import com.igoryasko.justmusic.language.LanguageManager;
 import com.igoryasko.justmusic.service.TrackService;
 import com.igoryasko.justmusic.service.UserService;
-import com.igoryasko.justmusic.util.AttributeConstant;
 import com.igoryasko.justmusic.util.PageConstant;
 import com.igoryasko.justmusic.validator.UserValidator;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Optional;
 
 import static com.igoryasko.justmusic.util.ParameterConstant.*;
@@ -45,10 +41,6 @@ public class UpdateUserCommand implements Command {
         if (validator.validate(firstName, lastName, email, login, password)) {
             try {
                 userService.updateUser(firstName, lastName, login, password, email);
-                List<Track> tracks = trackService.findAllTracks();
-                HttpSession session = request.getSession();
-                session.setAttribute(AttributeConstant.USER, login);
-                session.setAttribute(AttributeConstant.TRACKS, tracks);
                 commandResult.setRoute(CommandResult.RouteType.REDIRECT);
                 commandResult.setPagePath(PageConstant.PATH_HOME);
             } catch (ServiceException e) {

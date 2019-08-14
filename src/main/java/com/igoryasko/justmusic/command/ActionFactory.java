@@ -4,6 +4,10 @@ import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 
+/**
+ * The {@code ActionFactory} defines command from request parameter.
+ * @author Igor Yasko on 2019-07-19.
+ */
 @Log4j2
 public class ActionFactory {
 
