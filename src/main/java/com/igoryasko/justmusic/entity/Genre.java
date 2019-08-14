@@ -2,6 +2,9 @@ package com.igoryasko.justmusic.entity;
 
 import lombok.*;
 
+/**
+ * Entity for database table genres.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor

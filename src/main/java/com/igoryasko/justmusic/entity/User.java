@@ -5,6 +5,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Entity for database table users.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
