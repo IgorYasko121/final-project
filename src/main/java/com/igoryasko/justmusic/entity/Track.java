@@ -9,7 +9,6 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Track extends Entity {
 
    private static final long serialVersionUID = -4343808810105536731L;

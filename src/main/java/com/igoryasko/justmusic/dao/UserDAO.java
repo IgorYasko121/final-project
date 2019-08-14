@@ -229,7 +229,7 @@ public class UserDAO extends AbstractDAO<User> {
         }
     }
 
-    public boolean findByLogin(String login) throws DaoException {
+    public boolean checkLogin(String login) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -243,7 +243,7 @@ public class UserDAO extends AbstractDAO<User> {
         return false;
     }
 
-    public User findByName(String name) throws DaoException {
+    public User findByLogin(String name) throws DaoException {
         User user = new User();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             preparedStatement.setString(1, name);

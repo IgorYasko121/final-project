@@ -144,7 +144,7 @@ public class UserService {
         helper.begin(userDAO);
         try {
             log.debug("Check user: " + login);
-            return userDAO.findByLogin(login);
+            return userDAO.checkLogin(login);
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
@@ -158,7 +158,7 @@ public class UserService {
         helper.begin(userDAO);
         try {
             log.debug("Find user by name");
-            return userDAO.findByName(name);
+            return userDAO.findByLogin(name);
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);
