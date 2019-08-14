@@ -3,7 +3,7 @@ package com.igoryasko.justmusic.entity;
 import java.io.Serializable;
 
 /**
- * The class {@code Entity} provides entity functionality Serializable Cloneable.
+ * The class {@code Entity} provides entity functionality Serializable and Cloneable.
  * @author Igor Yasko on 2019-07-19.
  */
 public abstract class Entity implements Serializable, Cloneable {
