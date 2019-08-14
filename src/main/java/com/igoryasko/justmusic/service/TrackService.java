@@ -2,8 +2,6 @@ package com.igoryasko.justmusic.service;
 
 import com.igoryasko.justmusic.dao.TrackDAO;
 import com.igoryasko.justmusic.dao.TransactionHelper;
-import com.igoryasko.justmusic.entity.Genre;
-import com.igoryasko.justmusic.entity.Singer;
 import com.igoryasko.justmusic.entity.Track;
 import com.igoryasko.justmusic.exception.DaoException;
 import com.igoryasko.justmusic.exception.ServiceException;
@@ -30,7 +28,7 @@ public class TrackService {
         helper.begin(trackDAO);
         try {
             log.info("Check track name: " + fileName);
-            return trackDAO.findByName(fileName);
+            return trackDAO.checkFileName(fileName);
         } catch (DaoException e) {
             log.error(e);
             throw new ServiceException(e);

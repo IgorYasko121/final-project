@@ -107,7 +107,7 @@ public class TrackDAO extends AbstractDAO<Track> {
         return track;
     }
 
-    public boolean findByName(String fileName) throws DaoException {
+    public boolean checkFileName(String fileName) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_TRACK_BY_PATH)) {
             preparedStatement.setString(1, fileName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
