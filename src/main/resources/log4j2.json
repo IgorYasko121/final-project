@@ -38,11 +38,10 @@
         "level":"debug",
         "appender-ref": [{
           "ref":"Console_1"
-        }]
-//        ,
-//          {
-//            "ref":"File"
-//          }]
+        },
+          {
+            "ref":"File"
+          }]
       }
     }
   }
