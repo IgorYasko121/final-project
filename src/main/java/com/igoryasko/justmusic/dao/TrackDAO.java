@@ -42,7 +42,7 @@ public class TrackDAO extends AbstractDAO<Track> {
             "FROM tracks tr INNER JOIN genres g on tr.genre_id = g.genre_id INNER JOIN signers s on tr.signer_id = s.signer_id " +
             "ORDER BY track_id LIMIT ? OFFSET ?";
     @Language("SQL")
-    private static final String SELECT_TOP_FIVE_TRACKS = "SELECT track_id, track_name, track_path, g.genre_name, s.signer_name FROM tracks t" +
+    private static final String SELECT_FIVE_TRACKS = "SELECT track_id, track_name, track_path, g.genre_name, s.signer_name FROM tracks t" +
             " INNER JOIN genres g on t.genre_id = g.genre_id INNER JOIN signers s ON t.signer_id = s.signer_id LIMIT 5";
     @Language("SQL")
     private static final String FIND_TRACK_BY_ID = "SELECT track_id, track_name FROM tracks WHERE track_id=?";
@@ -185,7 +185,7 @@ public class TrackDAO extends AbstractDAO<Track> {
 
     public List<Track> findTopFive() throws DaoException {
         List<Track> list = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TOP_FIVE_TRACKS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FIVE_TRACKS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Track track = new Track();

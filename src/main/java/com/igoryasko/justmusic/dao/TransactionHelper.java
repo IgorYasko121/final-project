@@ -4,6 +4,7 @@ import com.igoryasko.justmusic.connectionpool.ConnectionPool;
 import com.igoryasko.justmusic.connectionpool.ProxyConnection;
 import lombok.extern.log4j.Log4j2;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 @Log4j2
 public class TransactionHelper {
 
-    private ProxyConnection connection;
+    private Connection connection;
     private ConnectionPool connectionPool;
 
     public TransactionHelper() {
@@ -23,7 +24,7 @@ public class TransactionHelper {
 
     private void init() {
         connectionPool = ConnectionPool.getInstance();
-        connection = (ProxyConnection) connectionPool.takeConnection();
+        connection = connectionPool.takeConnection();
         log.debug("Initialize TransactionHelper");
     }
 

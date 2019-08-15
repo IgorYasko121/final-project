@@ -33,7 +33,7 @@ public class GuestCommand implements Command {
         HttpSession session = request.getSession();
         List<Track> tracks;
         try {
-            tracks = service.findTopSixTracks();
+            tracks = service.findTopFiveTracks();
         } catch (ServiceException e) {
             log.error("ServiceException :" + e);
             throw new CommandException("Command execute fail" + e);

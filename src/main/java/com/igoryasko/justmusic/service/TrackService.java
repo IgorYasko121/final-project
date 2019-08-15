@@ -70,13 +70,13 @@ public class TrackService {
         }
     }
 
-    public List<Track> findTopSixTracks() throws ServiceException {
+    public List<Track> findTopFiveTracks() throws ServiceException {
         helper = new TransactionHelper();
         List<Track> tracks;
         helper.begin(trackDAO);
         try {
             tracks = trackDAO.findTopFive();
-            log.debug("Find top ten tracks");
+            log.debug("Find top five tracks");
             return tracks;
         } catch (DaoException e) {
             log.error("DaoException :" + e);
