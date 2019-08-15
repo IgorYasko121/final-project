@@ -50,7 +50,7 @@ public class Controller extends HttpServlet {
         try {
             resultOptional = command.execute(request);
         } catch (CommandException e) {
-            log.error("Servlet layer exception :", e);
+            log.error("CommandException :", e);
             request.setAttribute(AttributeConstant.ERROR, e);
             request.getRequestDispatcher(PageConstant.PAGE_SERVER_ERROR).forward(request, response);
             return;

@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,11 +45,6 @@ public class GenreDAO extends AbstractDAO<Genre> {
             "SELECT genre_id, genre_name FROM genres WHERE genre_name=?";
 
     @Override
-    public List<Genre> findAll() throws DaoException {
-        return null;
-    }
-
-    @Override
     public Genre findById(long id) throws DaoException {
         Genre genre = new Genre();
         try (PreparedStatement pr = connection.prepareStatement(FIND_GENER_BY_ID)) {
@@ -59,8 +55,8 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 genre.setName(resultSet.getString(2));
             }
         } catch (SQLException e) {
-            log.debug("Find genre: " + genre);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return genre;
     }
@@ -74,8 +70,8 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 return true;
             }
         } catch (SQLException e) {
-            log.info("Create genre: " + genre);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return false;
     }
@@ -91,8 +87,8 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 }
             }
         } catch (SQLException e) {
-            log.info("Create genre: " + genre);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return res;
     }
@@ -109,10 +105,18 @@ public class GenreDAO extends AbstractDAO<Genre> {
                 }
             }
         } catch (SQLException e) {
-            log.debug("Find genre by name: " + name);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return genre;
+    }
+
+    /**
+     * Method does;t supported
+     */
+    @Override
+    public List<Genre> findAll() throws DaoException {
+        return new ArrayList<>();
     }
 
     /**

@@ -35,8 +35,8 @@ public class GuestCommand implements Command {
         try {
             tracks = service.findTopSixTracks();
         } catch (ServiceException e) {
-            log.info(e);
-            throw new CommandException(e);
+            log.error("ServiceException :" + e);
+            throw new CommandException("Command execute fail" + e);
         }
         commandResult.setPagePath(PageConstant.PAGE_GUEST);
         session.setAttribute(AttributeConstant.ROLE, User.Role.GUEST);

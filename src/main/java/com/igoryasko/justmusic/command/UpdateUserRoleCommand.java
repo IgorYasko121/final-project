@@ -43,8 +43,8 @@ public class UpdateUserRoleCommand implements Command {
                     commandResult.setPagePath(PageConstant.PATH_ADMIN);
                 }
             } catch (ServiceException e) {
-                log.error(e);
-                throw new CommandException(e);
+                log.error("ServiceException :" + e);
+                throw new CommandException("Command execute fail" + e);
             }
         } else {
             request.setAttribute("errorLoginPassMessage",

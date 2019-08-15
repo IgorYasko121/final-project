@@ -30,8 +30,8 @@ public class TrackService {
             log.info("Check track name: " + fileName);
             return trackDAO.checkFileName(fileName);
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -47,8 +47,8 @@ public class TrackService {
             log.debug("Find all users by limit");
             return tracks;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -63,8 +63,8 @@ public class TrackService {
             log.debug("Find all tracks rows");
             return numOfRows;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -79,8 +79,8 @@ public class TrackService {
             log.debug("Find top ten tracks");
             return tracks;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.end();
         }
@@ -95,8 +95,8 @@ public class TrackService {
             log.debug("Find favorites tracks");
             return tracks;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.end();
         }
@@ -111,8 +111,8 @@ public class TrackService {
             log.info("Delete track: " + trackId);
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.end();
         }
@@ -127,8 +127,8 @@ public class TrackService {
             log.debug("Delete trackId " + trackId + "userId " + userId + "from favorite");
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.end();
         }
@@ -141,8 +141,8 @@ public class TrackService {
             log.info("Add track to users_tracks table " + userId + " " + trackId);
             return !trackDAO.checkFavorite(userId, trackId) && trackDAO.addFavorite(userId, trackId);
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.end();
         }

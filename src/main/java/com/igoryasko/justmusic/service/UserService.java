@@ -31,8 +31,8 @@ public class UserService {
             log.info("Check user");
             return userDAO.findByLoginPassword(login, password);
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -49,8 +49,8 @@ public class UserService {
             log.info("Register user: " + user);
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -67,8 +67,8 @@ public class UserService {
             log.info("Update user: " + user);
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -84,8 +84,8 @@ public class UserService {
             log.info("Find all users by limit");
             return users;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -100,8 +100,8 @@ public class UserService {
             log.info("Find all users rows");
             return numOfRows;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -116,8 +116,8 @@ public class UserService {
             log.info("Delete user: " + userId);
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -132,8 +132,8 @@ public class UserService {
             log.info("Update user");
             return res;
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -146,8 +146,8 @@ public class UserService {
             log.debug("Check user: " + login);
             return userDAO.checkLogin(login);
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }
@@ -160,8 +160,8 @@ public class UserService {
             log.debug("Find user by name");
             return userDAO.findByLogin(name);
         } catch (DaoException e) {
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         }finally {
             helper.end();
         }

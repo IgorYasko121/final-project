@@ -79,7 +79,7 @@ public class FileLoadServlet extends HttpServlet {
                         return;
                     }
                 } catch (ServiceException e) {
-                    log.error("Can't edd track to db", e);
+                    log.error("ServiceException", e);
                     request.setAttribute(AttributeConstant.ERROR, e);
                     request.getRequestDispatcher(PageConstant.PAGE_SERVER_ERROR).forward(request, response);
                     return;

@@ -38,8 +38,8 @@ public class FavoriteCommand implements Command {
             User user = userService.findUserByName(userName);
             tracks = service.findFavoriteTracks(user.getUserId());
         } catch (ServiceException e) {
-            log.error(e);
-            throw new CommandException(e);
+            log.error("ServiceException :" + e);
+            throw new CommandException("Command execute fail" + e);
         }
         commandResult.setPagePath(PageConstant.PATH_HOME);
         request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);

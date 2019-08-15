@@ -43,8 +43,8 @@ public class DeleteFavoriteCommand implements Command {
             trackService.deleteFromFavorite(trackId, user.getUserId());
             tracks = trackService.findFavoriteTracks(user.getUserId());
         } catch (ServiceException e) {
-            log.error(e);
-            throw new CommandException(e);
+            log.error("ServiceException :" + e);
+            throw new CommandException("Command execute fail" + e);
         }
         request.getSession().setAttribute(AttributeConstant.TRACKS, tracks);
         commandResult.setPagePath(PageConstant.PATH_HOME);

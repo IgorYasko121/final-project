@@ -47,8 +47,8 @@ public class AddToFavoriteCommand implements Command {
                 commandResult.setPagePath(PATH_HOME);
             }
         } catch (ServiceException e) {
-            log.error(e);
-            throw new CommandException(e);
+            log.error("ServiceException :" + e);
+            throw new CommandException("Command execute fail" + e);
         }
         return Optional.of(commandResult);
     }

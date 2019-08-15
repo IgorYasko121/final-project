@@ -52,8 +52,8 @@ public class AdminService {
             return true;
         } catch (DaoException e) {
             helper.rollback();
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.endTransaction();
         }
@@ -84,8 +84,8 @@ public class AdminService {
             return true;
         } catch (DaoException e) {
             helper.rollback();
-            log.error(e);
-            throw new ServiceException(e);
+            log.error("DaoException :" + e);
+            throw new ServiceException("Service execute fail" + e);
         } finally {
             helper.endTransaction();
         }

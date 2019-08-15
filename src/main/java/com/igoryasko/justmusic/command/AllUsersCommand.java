@@ -41,8 +41,8 @@ public class AllUsersCommand implements Command {
             users = service.findLimitUsers(RECORDS_PER_PAGE, currentPage);
             rows = service.getNumberOfRows();
         } catch (ServiceException e) {
-            log.error(e);
-            throw new CommandException(e);
+            log.error("ServiceException :" + e);
+            throw new CommandException("Command execute fail" + e);
         }
         int nOfPages = rows / RECORDS_PER_PAGE;
 

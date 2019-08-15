@@ -51,8 +51,8 @@ public class SingerDao extends AbstractDAO<Singer> {
                 }
             }
         } catch (SQLException e) {
-            log.debug("Find singer: " + name);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return singer;
     }
@@ -67,8 +67,8 @@ public class SingerDao extends AbstractDAO<Singer> {
                 res = resultSet.getLong(1);
             }
         } catch (SQLException e) {
-            log.info("Create singer: " + singer);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return res;
     }
@@ -82,8 +82,8 @@ public class SingerDao extends AbstractDAO<Singer> {
                 return true;
             }
         } catch (SQLException e) {
-            log.info("Create singer: " + singer);
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
         }
         return false;
     }

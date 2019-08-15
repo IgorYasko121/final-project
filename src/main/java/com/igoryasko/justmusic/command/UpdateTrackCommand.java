@@ -48,8 +48,8 @@ public class UpdateTrackCommand implements Command {
                 commandResult.setRoute(CommandResult.RouteType.REDIRECT);
                 commandResult.setPagePath(PageConstant.PATH_ADMIN);
             } catch (ServiceException e) {
-                log.error(e.getMessage());
-                throw new CommandException(e);
+                log.error("ServiceException :" + e);
+                throw new CommandException("Command execute fail" + e);
             }
         } else {
             request.setAttribute("errorLoginPassMessage",

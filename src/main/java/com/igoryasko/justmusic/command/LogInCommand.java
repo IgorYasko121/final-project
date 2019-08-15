@@ -44,8 +44,8 @@ public class LogInCommand implements Command {
             try {
                 role = userService.checkUser(login, password);
             } catch (ServiceException e) {
-                log.error(e);
-                throw new CommandException(e);
+                log.error("ServiceException :" + e);
+                throw new CommandException("Command execute fail" + e);
             }
             if (role.equals(User.Role.USER)) {
                 session.setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);

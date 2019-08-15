@@ -57,8 +57,8 @@ public class SignUpCommand implements Command {
                     commandResult.setPagePath(PageConstant.PAGE_MAIN);
                 }
             } catch (ServiceException e) {
-                log.error(e);
-                throw new CommandException(e);
+                log.error("ServiceException :" + e);
+                throw new CommandException("Command execute fail" + e);
             }
         } else {
             request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,

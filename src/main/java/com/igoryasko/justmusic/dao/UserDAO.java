@@ -2,6 +2,7 @@ package com.igoryasko.justmusic.dao;
 
 import com.igoryasko.justmusic.entity.User;
 import com.igoryasko.justmusic.exception.DaoException;
+import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * The {@code UserDAO} class provides an implementation of methods for working with database table users.
  * @author Igor Yasko on 2019-07-19.
  */
+@Log4j2
 public class UserDAO extends AbstractDAO<User> {
 
     private static UserDAO instance;
@@ -73,7 +75,8 @@ public class UserDAO extends AbstractDAO<User> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -97,7 +100,8 @@ public class UserDAO extends AbstractDAO<User> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -110,7 +114,8 @@ public class UserDAO extends AbstractDAO<User> {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return result;
     }
@@ -126,7 +131,8 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setLastName(resultSet.getString(3));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return user;
     }
@@ -140,7 +146,8 @@ public class UserDAO extends AbstractDAO<User> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -156,7 +163,8 @@ public class UserDAO extends AbstractDAO<User> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -170,7 +178,8 @@ public class UserDAO extends AbstractDAO<User> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -189,7 +198,8 @@ public class UserDAO extends AbstractDAO<User> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -207,7 +217,8 @@ public class UserDAO extends AbstractDAO<User> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -225,7 +236,8 @@ public class UserDAO extends AbstractDAO<User> {
             }
             return User.Role.GUEST;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
     }
 
@@ -238,7 +250,8 @@ public class UserDAO extends AbstractDAO<User> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -254,7 +267,8 @@ public class UserDAO extends AbstractDAO<User> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return user;
     }

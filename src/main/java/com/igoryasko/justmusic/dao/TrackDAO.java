@@ -4,6 +4,7 @@ import com.igoryasko.justmusic.entity.Genre;
 import com.igoryasko.justmusic.entity.Singer;
 import com.igoryasko.justmusic.entity.Track;
 import com.igoryasko.justmusic.exception.DaoException;
+import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.List;
  * The {@code TrackDAO} class provides an implementation of methods for working with database table tracks.
  * @author Igor Yasko on 2019-07-19.
  */
+@Log4j2
 public class TrackDAO extends AbstractDAO<Track> {
 
     private static TrackDAO instance;
@@ -86,7 +88,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -102,6 +105,7 @@ public class TrackDAO extends AbstractDAO<Track> {
                 track.setName(resultSet.getString(2));
             }
         } catch (SQLException e) {
+            log.error("SQLException :" + e);
             throw new DaoException(e);
         }
         return track;
@@ -116,7 +120,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -131,7 +136,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -153,7 +159,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -170,7 +177,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -190,7 +198,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -203,7 +212,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return result;
     }
@@ -229,7 +239,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -243,7 +254,7 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -258,7 +269,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
@@ -283,7 +295,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return list;
     }
@@ -297,7 +310,8 @@ public class TrackDAO extends AbstractDAO<Track> {
                 return true;
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
         }
         return false;
     }
