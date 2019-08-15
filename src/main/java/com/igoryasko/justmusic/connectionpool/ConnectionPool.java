@@ -65,23 +65,11 @@ public class ConnectionPool {
                 log.error("Connection couldn't create", e);
             }
         }
-        checkAvailableConnections();
     }
 
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection(dbConfiguration.getURL(),
                 dbConfiguration.getUSER(), dbConfiguration.getPASSWORD());
-    }
-
-    /**
-     * Checks the difference between available connections and parameter poolSize
-     * @throws RuntimeException if amount of available connections less then parameter poolSize
-     */
-    private void checkAvailableConnections() throws RuntimeException {
-        if (availableConnections.size() < dbConfiguration.getPoolSize()) {
-            log.fatal("Can't initialize connection pool.");
-            throw new RuntimeException("Can't initialize connection pool.");
-        }
     }
 
     public Connection takeConnection() {

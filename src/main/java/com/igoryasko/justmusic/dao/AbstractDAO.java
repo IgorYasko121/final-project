@@ -1,6 +1,5 @@
 package com.igoryasko.justmusic.dao;
 
-import com.igoryasko.justmusic.connectionpool.ProxyConnection;
 import com.igoryasko.justmusic.entity.Entity;
 import com.igoryasko.justmusic.exception.DaoException;
 
