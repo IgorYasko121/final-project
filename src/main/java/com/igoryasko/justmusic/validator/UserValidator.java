@@ -10,7 +10,7 @@ public class UserValidator {
 
     private static final String PASSWORD_REGEX_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=\\S+$).{6,12}$";
 
-    private static final String NAME_REGEX_PATTERN = "[a-zA-Zа-яА-ЯёЁ]{4,20}";
+    private static final String NAME_REGEX_PATTERN = "[a-zA-Zа-яА-ЯёЁ]{3,20}";
 
     private static final String EMAIL_REGEX_PATTERN = "^[A-Za-z0-9_.-]{3,20}@[A-Za-z.]{3,15}$";
 
