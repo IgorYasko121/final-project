@@ -18,7 +18,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class TrackDAO extends AbstractDAO<Track> {
+public class TrackDAO extends AbstractDAO<Track> implements DAO<Track> {
 
     private static TrackDAO instance;
 
@@ -70,6 +70,62 @@ public class TrackDAO extends AbstractDAO<Track> {
             "UPDATE tracks SET track_name=?, genre_id=?, signer_id=? WHERE track_id=?";
 
     @Override
+    public boolean create(Track track) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TRACK)) {
+            preparedStatement.setString(1, track.getName());
+            preparedStatement.setString(2, track.getPath());
+            preparedStatement.setLong(3, track.getGenre().getGenreId());
+            preparedStatement.setLong(4, track.getSinger().getSingerId());
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Track track) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(UPDATE_TRACK)) {
+            pr.setString(1, track.getName());
+            pr.setLong(2, track.getGenre().getGenreId());
+            pr.setLong(3, track.getSinger().getSingerId());
+            pr.setLong(4, track.getTrackId());
+            int result = pr.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Track entity) throws DaoException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(long id) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TRACK_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
+
+    @Override
     public List<Track> findAll() throws DaoException {
         List<Track> list = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TRACKS)) {
@@ -118,63 +174,6 @@ public class TrackDAO extends AbstractDAO<Track> {
                 if (resultSet.next()) {
                     return true;
                 }
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
-
-
-    @Override
-    public boolean delete(long id) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TRACK_BY_ID)) {
-            preparedStatement.setLong(1, id);
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Track entity) {
-        return false;
-    }
-
-    @Override
-    public boolean create(Track track) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TRACK)) {
-            preparedStatement.setString(1, track.getName());
-            preparedStatement.setString(2, track.getPath());
-            preparedStatement.setLong(3, track.getGenre().getGenreId());
-            preparedStatement.setLong(4, track.getSinger().getSingerId());
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean update(Track track) throws DaoException {
-        try (PreparedStatement pr = connection.prepareStatement(UPDATE_TRACK)) {
-            pr.setString(1, track.getName());
-            pr.setLong(2, track.getGenre().getGenreId());
-            pr.setLong(3, track.getSinger().getSingerId());
-            pr.setLong(4, track.getTrackId());
-            int result = pr.executeUpdate();
-            if (result != 0) {
-                return true;
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
@@ -315,5 +314,6 @@ public class TrackDAO extends AbstractDAO<Track> {
         }
         return false;
     }
+
 
 }

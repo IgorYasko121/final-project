@@ -1,5 +1,6 @@
 package com.igoryasko.justmusic.dao;
 
+import com.igoryasko.justmusic.entity.Entity;
 import com.igoryasko.justmusic.entity.Genre;
 import com.igoryasko.justmusic.exception.DaoException;
 import lombok.extern.log4j.Log4j2;
@@ -14,10 +15,11 @@ import java.util.List;
 
 /**
  * The {@code SingerDao} class provides an implementation of methods for working with database table genres.
+ *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class GenreDAO extends AbstractDAO<Genre> {
+public class GenreDAO extends AbstractDAO<Genre> implements DAO<Genre> {
 
     private static GenreDAO instance;
 
@@ -112,7 +114,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
     }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public List<Genre> findAll() throws DaoException {
@@ -120,7 +122,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
     }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public boolean delete(long id) throws DaoException {
@@ -128,7 +130,7 @@ public class GenreDAO extends AbstractDAO<Genre> {
     }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public boolean delete(Genre entity) throws DaoException {
@@ -142,5 +144,6 @@ public class GenreDAO extends AbstractDAO<Genre> {
     public boolean update(Genre entity) throws DaoException {
         return false;
     }
+
 
 }

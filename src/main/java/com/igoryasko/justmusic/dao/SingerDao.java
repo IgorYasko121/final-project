@@ -17,7 +17,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class SingerDao extends AbstractDAO<Singer> {
+public class SingerDao extends AbstractDAO<Singer> implements DAO<Singer> {
 
     private static SingerDao instance;
 
@@ -38,6 +38,37 @@ public class SingerDao extends AbstractDAO<Singer> {
     @Language("SQL")
     private static final String FIND_SINGER_BY_NAME =
             "SELECT signer_id, signer_name FROM signers WHERE signer_name=?";
+
+    @Override
+    public boolean create(Singer singer) throws DaoException {
+        try (PreparedStatement pr = connection.prepareStatement(INSERT_SINGER)) {
+            pr.setString(1, singer.getName());
+            int result = pr.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail", e);
+        }
+        return false;
+    }
+
+    /**
+     * The method doesn't supported
+     */
+    @Override
+    public boolean delete(Singer entity) throws DaoException {
+        return false;
+    }
+
+    /**
+     * The method doesn't supported
+     */
+    @Override
+    public boolean update(Singer entity) throws DaoException {
+        return false;
+    }
 
     public Singer findByName(String name) throws DaoException {
         Singer singer = null;
@@ -73,23 +104,9 @@ public class SingerDao extends AbstractDAO<Singer> {
         return res;
     }
 
-    @Override
-    public boolean create(Singer singer) throws DaoException {
-        try (PreparedStatement pr = connection.prepareStatement(INSERT_SINGER)) {
-            pr.setString(1, singer.getName());
-            int result = pr.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail", e);
-        }
-        return false;
-    }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public List<Singer> findAll() throws DaoException {
@@ -97,7 +114,7 @@ public class SingerDao extends AbstractDAO<Singer> {
     }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public Singer findById(long id) throws DaoException {
@@ -105,26 +122,10 @@ public class SingerDao extends AbstractDAO<Singer> {
     }
 
     /**
-     * Method does;t supported
+     * The method doesn't supported
      */
     @Override
     public boolean delete(long id) throws DaoException {
-        return false;
-    }
-
-    /**
-     * Method does;t supported
-     */
-    @Override
-    public boolean delete(Singer entity) throws DaoException {
-        return false;
-    }
-
-    /**
-     * Method does;t supported
-     */
-    @Override
-    public boolean update(Singer entity) throws DaoException {
         return false;
     }
 

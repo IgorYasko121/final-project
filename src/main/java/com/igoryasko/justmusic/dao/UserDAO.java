@@ -17,7 +17,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class UserDAO extends AbstractDAO<User> {
+public class UserDAO extends AbstractDAO<User> implements DAO<User> {
 
     private static UserDAO instance;
 
@@ -60,6 +60,62 @@ public class UserDAO extends AbstractDAO<User> {
     @Language("SQL")
     private static final String UPDATE_USER_ROLE =
             "UPDATE users SET role=? WHERE user_id=?";
+
+    @Override
+    public boolean create(User user) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, String.valueOf(user.getRole()));
+            preparedStatement.setString(6, user.getEmail());
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(User user) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getLogin());
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(User user) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
+            preparedStatement.setLong(1, user.getUserId());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("SQLException :" + e);
+            throw new DaoException("Dao statement fail" + e);
+        }
+        return false;
+    }
 
     @Override
     public List<User> findAll() throws DaoException {
@@ -152,66 +208,12 @@ public class UserDAO extends AbstractDAO<User> {
         return false;
     }
 
-    @Override
-    public boolean delete(User user) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
-            preparedStatement.setLong(1, user.getUserId());
-            preparedStatement.setString(2, user.getFirstName());
-            preparedStatement.setString(3, user.getLastName());
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
+
 
     public boolean updateRoleById(String role, long id) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE)) {
             preparedStatement.setString(1, String.valueOf(role));
             preparedStatement.setLong(2, id);
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean create(User user) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getLogin());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, String.valueOf(user.getRole()));
-            preparedStatement.setString(6, user.getEmail());
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean update(User user) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getLogin());
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 return true;
@@ -272,5 +274,6 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return user;
     }
+
 
 }
