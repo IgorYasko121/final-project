@@ -22,11 +22,9 @@
                 <input type="hidden" name="user_id" value="<c:out value="${user_id}"/>"/>
                 <div class="form-group">
                     <label for="role"><fmt:message key="label.role"/></label>
-                    <input class="form-control" id="role" type="text" name="role" value="" required="required" pattern="USER|ADMIN|GUEST"/>
+                    <input class="form-control" id="role" type="text" name="role" value="" required="required" pattern="USER|GUEST"/>
                     <small class="form-text text-muted"><fmt:message key="input.roleinfo"/></small>
                 </div>
-<%--                Role:<br/>--%>
-<%--                <input type="text" name="role" value="" required="required" pattern="user|admin|guest" />--%>
                 <br/>
                 ${errorLoginPassMessage}
                 <br/>

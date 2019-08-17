@@ -129,22 +129,8 @@ public class UserService {
         boolean res;
         try {
             res = userDAO.updateRoleById(role, id);
-            log.info("Update user");
+            log.info("Update user role");
             return res;
-        } catch (DaoException e) {
-            log.error("DaoException :" + e);
-            throw new ServiceException("Service execute fail" + e);
-        }finally {
-            helper.end();
-        }
-    }
-
-    public boolean checkLogin(String login) throws ServiceException {
-        helper = new TransactionHelper();
-        helper.begin(userDAO);
-        try {
-            log.debug("Check user: " + login);
-            return userDAO.checkLogin(login);
         } catch (DaoException e) {
             log.error("DaoException :" + e);
             throw new ServiceException("Service execute fail" + e);

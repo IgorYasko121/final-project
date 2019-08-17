@@ -32,7 +32,7 @@ public class UpdateUserRoleCommand implements Command {
         String role = request.getParameter(ROLE).toUpperCase();
         long userId = Long.parseLong(request.getParameter(USER_ID));
         UserValidator validator = new UserValidator();
-        if (validator.validateRole(role) && userId > 0) {
+        if (validator.validate(role) && userId > 0) {
             try {
                 if (service.updateRoleUser(role, userId)) {
                     commandResult.setPagePath(PageConstant.PATH_ADMIN);

@@ -21,12 +21,6 @@ public abstract class AbstractDAO<T extends Entity> {
 
     public abstract boolean delete(long id) throws DaoException;
 
-//    public abstract boolean delete(T entity) throws DaoException;
-
-//    public abstract boolean create(T entity) throws DaoException;
-
-//    public abstract boolean update(T entity) throws DaoException;
-
     void setConnection(Connection connection) {
         this.connection = connection;
     }

@@ -19,6 +19,7 @@ import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
 /**
  * The class {@code SignUpCommand} .
+ *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
@@ -43,22 +44,18 @@ public class SignUpCommand implements Command {
         UserValidator validator = new UserValidator();
         if (validator.validate(firstName, lastName, email, login, password)) {
             try {
-                if (!userService.checkLogin(login)) {
-                    userService.registerUser(firstName, lastName, login, password, email);
-                    HttpSession session = request.getSession();
-                    session.setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
-                    session.setAttribute(AttributeConstant.ROLE, User.Role.USER);
-                    session.setAttribute(AttributeConstant.USER, login);
-                    commandResult.setPagePath(PageConstant.PATH_HOME);
-                    commandResult.setRoute(CommandResult.RouteType.REDIRECT);
-                } else {
-                    request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
-                            LanguageManager.getMessage("login.exist", (String) request.getSession().getAttribute(LOCALE)));
-                    commandResult.setPagePath(PageConstant.PAGE_MAIN);
-                }
+                userService.registerUser(firstName, lastName, login, password, email);
+                HttpSession session = request.getSession();
+                session.setAttribute(AttributeConstant.NUMBER_OF_PAGES, null);
+                session.setAttribute(AttributeConstant.ROLE, User.Role.USER);
+                session.setAttribute(AttributeConstant.USER, login);
+                commandResult.setPagePath(PageConstant.PATH_HOME);
+                commandResult.setRoute(CommandResult.RouteType.REDIRECT);
             } catch (ServiceException e) {
+                request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
+                        LanguageManager.getMessage("login.exist", (String) request.getSession().getAttribute(LOCALE)));
+                commandResult.setPagePath(PageConstant.PAGE_MAIN);
                 log.error("ServiceException :" + e);
-                throw new CommandException("Command execute fail" + e);
             }
         } else {
             request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,

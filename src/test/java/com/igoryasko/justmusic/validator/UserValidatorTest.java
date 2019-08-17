@@ -9,8 +9,8 @@ public class UserValidatorTest {
     public void validateTest() {
         String firstName = "null";
         String lastName = "Мороз";
-        String login = "admin";
-        String password = "Admin1";
+        String login = "Igor";
+        String password = "Igor11";
         String email = "admin123@gmail.com";
         Assertions.assertTrue(new UserValidator().validate(firstName, lastName, email, login, password));
     }
@@ -19,36 +19,36 @@ public class UserValidatorTest {
     public void validateNegativeTest() {
         String firstName = "Гена ";
         String lastName = "Мороз";
-        String login = "admin";
-        String password = "Admin1";
+        String login = "Igor";
+        String password = "Igor11";
         String email = "adm@gmail.com";
         Assertions.assertFalse(new UserValidator().validate(firstName, lastName, email, login, password));
     }
 
     @Test
     public void validate() {
-        String login = "admin";
-        String password = "Admin1";
+        String login = "Igor";
+        String password = "Igor11";
         Assertions.assertTrue(new UserValidator().validate(login, password));
     }
 
     @Test
     public void validateOverloadTest() {
-        String login = "admin ";
-        String password = "Admin1";
+        String login = "Igor ";
+        String password = "Igor11";
         Assertions.assertFalse(new UserValidator().validate(login, password));
     }
 
     @Test
     public void validateRoleTest() {
-        String role = "ADMIN";
-        Assertions.assertTrue(new UserValidator().validateRole(role));
+        String role = "GUEST";
+        Assertions.assertTrue(new UserValidator().validate(role));
     }
 
     @Test
     public void validateRoleNegativeTest() {
-        String login = "admin ";
-        String password = "Admin1";
+        String login = "Igor ";
+        String password = "Igor11";
         Assertions.assertFalse(new UserValidator().validate(login, password));
     }
 

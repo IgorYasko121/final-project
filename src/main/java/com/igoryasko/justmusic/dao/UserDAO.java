@@ -76,7 +76,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return false;
     }
@@ -95,7 +95,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return false;
     }
@@ -112,7 +112,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return false;
     }
@@ -132,7 +132,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return list;
     }
@@ -157,7 +157,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return list;
     }
@@ -171,7 +171,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return result;
     }
@@ -188,7 +188,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return user;
     }
@@ -203,12 +203,10 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return false;
     }
-
-
 
     public boolean updateRoleById(String role, long id) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE)) {
@@ -220,7 +218,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return false;
     }
@@ -239,23 +237,8 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             return User.Role.GUEST;
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
-    }
-
-    public boolean checkLogin(String login) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
-            preparedStatement.setString(1, login);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
-        }
-        return false;
     }
 
     public User findByLogin(String name) throws DaoException {
@@ -270,7 +253,7 @@ public class UserDAO extends AbstractDAO<User> implements DAO<User> {
             }
         } catch (SQLException e) {
             log.error("SQLException :" + e);
-            throw new DaoException("Dao statement fail" + e);
+            throw new DaoException("Dao statement fail :" + e);
         }
         return user;
     }
