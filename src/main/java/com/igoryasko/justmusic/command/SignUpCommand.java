@@ -52,10 +52,14 @@ public class SignUpCommand implements Command {
                 commandResult.setPagePath(PageConstant.PATH_HOME);
                 commandResult.setRoute(CommandResult.RouteType.REDIRECT);
             } catch (ServiceException e) {
-                request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
-                        LanguageManager.getMessage("login.exist", (String) request.getSession().getAttribute(LOCALE)));
-                commandResult.setPagePath(PageConstant.PAGE_MAIN);
-                log.error("ServiceException :" + e);
+                if (e.getMessage().contains("duplicate key value violates unique constraint \"users_login_key\"")) {
+                    request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
+                            LanguageManager.getMessage("login.exist", (String) request.getSession().getAttribute(LOCALE)));
+                    commandResult.setPagePath(PageConstant.PAGE_MAIN);
+                } else {
+                    log.error("ServiceException :" + e);
+                    throw new CommandException("Command execute fail " + e);
+                }
             }
         } else {
             request.setAttribute(AttributeConstant.ERROR_LOGIN_PASSWORD,
