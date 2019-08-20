@@ -1,15 +1,11 @@
 package com.igoryasko.justmusic.dao;
 
-import com.igoryasko.justmusic.entity.Entity;
 import com.igoryasko.justmusic.entity.Genre;
 import com.igoryasko.justmusic.exception.DaoException;
 import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +15,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class GenreDAO extends AbstractDAO<Genre> implements DAO<Genre> {
+public class GenreDAO extends AbstractDAO implements DAO<Genre> {
 
     private static GenreDAO instance;
 

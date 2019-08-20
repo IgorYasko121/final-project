@@ -5,10 +5,7 @@ import com.igoryasko.justmusic.exception.DaoException;
 import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +14,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class SingerDao extends AbstractDAO<Singer> implements DAO<Singer> {
+public class SingerDao extends AbstractDAO implements DAO<Singer> {
 
     private static SingerDao instance;
 

@@ -7,6 +7,7 @@ import com.igoryasko.justmusic.exception.DaoException;
 import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class TrackDAO extends AbstractDAO<Track> implements DAO<Track> {
+public class TrackDAO extends AbstractDAO implements DAO<Track> {
 
     private static TrackDAO instance;
 

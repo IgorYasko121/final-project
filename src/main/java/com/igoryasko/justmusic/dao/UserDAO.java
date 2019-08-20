@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.intellij.lang.annotations.Language;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2
-public class UserDAO extends AbstractDAO<User> implements DAO<User> {
+public class UserDAO extends AbstractDAO implements DAO<User> {
 
     private static UserDAO instance;
 

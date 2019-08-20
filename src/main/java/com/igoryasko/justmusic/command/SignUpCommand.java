@@ -19,7 +19,6 @@ import static com.igoryasko.justmusic.util.ParameterConstant.*;
 
 /**
  * The class {@code SignUpCommand} .
- *
  * @author Igor Yasko on 2019-07-19.
  */
 @Log4j2

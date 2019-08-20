@@ -1,7 +1,6 @@
 package com.igoryasko.justmusic.dao;
 
 import com.igoryasko.justmusic.connectionpool.ConnectionPool;
-import com.igoryasko.justmusic.connectionpool.ProxyConnection;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
